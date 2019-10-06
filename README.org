@@ -1,4 +1,4 @@
-#+STARTUP: overview 
++STARTUP: overview 
 #+PROPERTY: header-args :comments yes :results silent
 * Packages to add or look into
 popup-kill-ring
@@ -143,6 +143,19 @@ mathewZMD
 
 
 
+* Snippets
+#+BEGIN_SRC emacs-lisp
+    (use-package yasnippet
+      :ensure t
+      :init
+        (yas-global-mode 1))
+
+    (use-package yasnippet-snippets
+      :ensure t)
+    (use-package yasnippet-classic-snippets
+      :ensure t)
+
+#+END_SRC
 
 *  LSP
 #+BEGIN_SRC emacs-lisp
@@ -216,9 +229,14 @@ mathewZMD
           (venv-initialize-interactive-shells)
           (venv-initialize-eshell))
  
-(use-package lsp-python-ms
-  :after lsp-mode python
-  :custom
-  (lsp-python-executable-cmd "python3"))
+(venv-workon "p3")
+(setq lsp-python-executable-cmd "python3")
+
+#+END_SRC
+* C++
+#+BEGIN_SRC emacs-lisp
+
+(setq lsp-clangd-executable "clangd-6.0")
+(setq lsp-clients-clangd-executable "clangd-6.0")
 
 #+END_SRC
