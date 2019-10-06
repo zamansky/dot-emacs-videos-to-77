@@ -1,0 +1,224 @@
+#+STARTUP: overview 
+#+PROPERTY: header-args :comments yes :results silent
+* Packages to add or look into
+popup-kill-ring
+discover-my-major
+aweshell
+treemacs (treemacs-magit, projectile)
+amx
+mathewZMD
+
+* repos
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
+#+END_SRC
+
+
+* interface tweaks
+  #+BEGIN_SRC emacs-lisp
+    (setq inhibit-startup-message t)
+    (tool-bar-mode -1)
+    (fset 'yes-or-no-p 'y-or-n-p)
+    (global-set-key (kbd "<f5>") 'revert-buffer)
+    (setenv "BROWSER" "firefox")
+
+    (load-theme 'leuven)
+  #+END_SRC
+
+
+* Swiper / Counsel
+#+BEGIN_SRC emacs-lisp
+  (use-package counsel
+    :ensure t
+    :bind
+    (("M-y" . counsel-yank-pop)
+     :map ivy-minibuffer-map
+     ("M-y" . ivy-next-line)))
+
+  (use-package ivy
+    :ensure t
+    :diminish (ivy-mode)
+    :bind (("C-x b" . ivy-switch-buffer))
+    :config
+    (ivy-mode 1)
+    (setq ivy-use-virtual-buffers t)
+    (setq ivy-count-format "%d/%d ")
+    (setq ivy-display-style 'fancy))
+
+
+  (use-package swiper
+    :ensure t
+    :bind (("C-s" . swiper-isearch)
+           ("C-r" . swiper-isearch)
+           ("C-c C-r" . ivy-resume)
+           ("M-x" . counsel-M-x)
+           ("C-x C-f" . counsel-find-file)))
+#+END_SRC
+
+* Interface packages
+
+#+BEGIN_SRC emacs-lisp
+(use-package posframe :ensure t)
+
+    (use-package which-key
+      :ensure t 
+      :config
+      (which-key-mode))
+
+#+END_SRC
+
+
+* org-mode stuff
+  #+BEGIN_SRC emacs-lisp
+    (custom-set-variables
+     '(org-directory "~/Sync/orgfiles")
+     '(org-default-notes-file (concat org-directory "/notes.org"))
+     '(org-export-html-postamble nil)
+     '(org-hide-leading-stars t)
+     '(org-startup-folded (quote overview))
+     '(org-startup-indented t)
+     '(org-confirm-babel-evaluate nil)
+     '(org-src-fontify-natively t)
+     )
+
+
+    (use-package org-bullets
+      :ensure t
+      :config
+      (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+      
+
+    (global-set-key "\C-ca" 'org-agenda)
+    (setq org-agenda-start-on-weekday nil)
+    (setq org-agenda-custom-commands
+          '(("c" "Simple agenda view"
+             ((agenda "")
+              (alltodo "")))))
+
+    (global-set-key (kbd "C-c c") 'org-capture)
+
+    (setq org-agenda-files (list "~/Sync/orgfiles/gcal.org"
+                                 "~/Sync/orgfiles/soe-cal.org"
+                                 "~/Sync/orgfiles/i.org"
+                                 "~/Sync/orgfiles/schedule.org"))
+    (setq org-capture-templates
+          '(("a" "Appointment" entry (file  "~/Sync/orgfiles/gcal.org" )
+             "* %?\n\n%^T\n\n:PROPERTIES:\n\n:END:\n\n")
+            ("l" "Link" entry (file+headline "~/Sync/orgfiles/links.org" "Links")
+             "* %? %^L %^g \n%T" :prepend t)
+            ("b" "Blog idea" entry (file+headline "~/Sync/orgfiles/i.org" "Blog Topics:")
+             "* %?\n%T" :prepend t)
+            ("t" "To Do Item" entry (file+headline "~/Sync/orgfiles/i.org" "To Do and Notes")
+             "* TODO %?\n%u" :prepend t)
+            ("m" "Mail To Do" entry (file+headline "~/Sync/orgfiles/i.org" "To Do and Notes")
+             "* TODO %a\n %?" :prepend t)
+            ("g" "GMail To Do" entry (file+headline "~/Sync/orgfiles/i.org" "To Do and Notes")
+             "* TODO %^L\n %?" :prepend t)
+            ("n" "Note" entry (file+headline "~/Sync/orgfiles/i.org" "Notes")
+             "* %u %? " :prepend t)
+            ))
+  
+
+
+    (use-package htmlize :ensure t)
+
+    (setq org-ditaa-jar-path "/usr/share/ditaa/ditaa.jar")
+
+
+  
+  #+END_SRC
+
+
+* Load other files
+   #+BEGIN_SRC emacs-lisp
+     (defun load-if-exists (f)
+       "load the elisp file only if it exists and is readable"
+       (if (file-readable-p f)
+           (load-file f)))
+
+     (load-if-exists "~/Sync/shared/mu4econfig.el")
+     (load-if-exists "~/Sync/shared/not-for-github.el")
+
+   #+END_SRC
+
+
+
+
+*  LSP
+#+BEGIN_SRC emacs-lisp
+(use-package lsp-mode
+  :ensure t
+  :commands lsp
+  :custom
+  (lsp-auto-guess-root nil)
+  (lsp-prefer-flymake nil) ; Use flycheck instead of flymake
+  :bind (:map lsp-mode-map ("C-c C-f" . lsp-format-buffer))
+  :hook ((python-mode c-mode c++-mode) . lsp))
+
+
+(use-package lsp-ui
+  :after lsp-mode
+  :diminish
+  :commands lsp-ui-mode
+  :custom-face
+  (lsp-ui-doc-background ((t (:background nil))))
+  (lsp-ui-doc-header ((t (:inherit (font-lock-string-face italic)))))
+  :bind (:map lsp-ui-mode-map
+              ([remap xref-find-definitions] . lsp-ui-peek-find-definitions)
+              ([remap xref-find-references] . lsp-ui-peek-find-references)
+              ("C-c u" . lsp-ui-imenu))
+  :custom
+  (lsp-ui-doc-enable t)
+  (lsp-ui-doc-header t)
+  (lsp-ui-doc-include-signature t)
+  (lsp-ui-doc-position 'top)
+  (lsp-ui-doc-border (face-foreground 'default))
+  (lsp-ui-sideline-enable nil)
+  (lsp-ui-sideline-ignore-duplicate t)
+  (lsp-ui-sideline-show-code-actions nil)
+  :config
+  ;; Use lsp-ui-doc-webkit only in GUI
+  (setq lsp-ui-doc-use-webkit t)
+  ;; WORKAROUND Hide mode-line of the lsp-ui-imenu buffer
+  ;; https://github.com/emacs-lsp/lsp-ui/issues/243
+  (defadvice lsp-ui-imenu (after hide-lsp-ui-imenu-mode-line activate)
+    (setq mode-line-format nil)))
+#+END_SRC
+
+
+
+* Company
+#+BEGIN_SRC emacs-lisp
+(use-package company
+:ensure t
+:config
+(setq company-idle-delay 0)
+(setq company-minimum-prefix-length 3)
+
+(global-company-mode t)
+)
+
+(use-package company-lsp
+  :ensure t
+  :config
+ (push 'company-lsp company-backends)
+)
+#+END_SRC
+
+* Python
+
+#+BEGIN_SRC emacs-lisp
+
+
+        (use-package virtualenvwrapper
+          :ensure t
+          :config
+          (venv-initialize-interactive-shells)
+          (venv-initialize-eshell))
+ 
+(use-package lsp-python-ms
+  :after lsp-mode python
+  :custom
+  (lsp-python-executable-cmd "python3"))
+
+#+END_SRC
