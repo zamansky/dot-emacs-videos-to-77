@@ -240,3 +240,66 @@ mathewZMD
 (setq lsp-clients-clangd-executable "clangd-6.0")
 
 #+END_SRC
+
+* personal keymap
+#+BEGIN_SRC emacs-lisp
+;; unset C- and M- digit keys
+;(dotimes (n 10)
+;  (global-unset-key (kbd (format "C-%d" n)))
+;  (global-unset-key (kbd (format "M-%d" n)))
+;  )
+
+
+(defun org-agenda-show-agenda-and-todo (&optional arg)
+  (interactive "P")
+  (org-agenda arg "c")
+  (org-agenda-fortnight-view))
+
+(defun z/load-iorg ()
+(interactive )
+(find-file "~/Sync/orgfiles/i.org"))
+
+;; set up my own map
+(define-prefix-command 'z-map)
+(global-set-key (kbd "C-z") 'z-map) ;; was C-1
+(define-key z-map (kbd "k") 'compile)
+(define-key z-map (kbd "c") 'hydra-multiple-cursors/body)
+(define-key z-map (kbd "m") 'mu4e)
+(define-key z-map (kbd "1") 'org-global-cycle)
+(define-key z-map (kbd "a") 'org-agenda-show-agenda-and-todo)
+(define-key z-map (kbd "g") 'counsel-ag)
+(define-key z-map (kbd "2") 'make-frame-command)
+(define-key z-map (kbd "0") 'delete-frame)
+(define-key z-map (kbd "o") 'ace-window)
+
+(define-key z-map (kbd "s") 'flyspell-correct-word-before-point)
+(define-key z-map (kbd "i") 'z/load-iorg)
+(define-key z-map (kbd "f") 'origami-toggle-node)
+(define-key z-map (kbd "w") 'z/swap-windows)
+(define-key z-map (kbd "*") 'calc)
+
+
+  (setq user-full-name "Mike Zamansky"
+                          user-mail-address "mz631@hunter.cuny.edu")
+  ;;--------------------------------------------------------------------------
+
+
+  (global-set-key (kbd "\e\ei")
+                  (lambda () (interactive) (find-file "~/Sync/orgfiles/i.org")))
+
+  (global-set-key (kbd "\e\el")
+                  (lambda () (interactive) (find-file "~/Sync/orgfiles/links.org")))
+
+  (global-set-key (kbd "\e\ec")
+                  (lambda () (interactive) (find-file "~/.emacs.d/myinit.org")))
+
+(global-set-key (kbd "<end>") 'move-end-of-line)
+
+(global-set-key [mouse-3] 'flyspell-correct-word-before-point)
+
+#+END_SRC
+
+#+RESULTS:
+: origami-toggle-node
+
+#  LocalWords:  DIRED Javascript Screencasts Autocomplete
