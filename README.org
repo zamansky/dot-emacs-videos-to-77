@@ -291,7 +291,7 @@ mathewZMD
                   (lambda () (interactive) (find-file "~/Sync/orgfiles/links.org")))
 
   (global-set-key (kbd "\e\ec")
-                  (lambda () (interactive) (find-file "~/.emacs.d/myinit.org")))
+                  (lambda () (interactive) (find-file "~/.emacs.d/README.org")))
 
 (global-set-key (kbd "<end>") 'move-end-of-line)
 
