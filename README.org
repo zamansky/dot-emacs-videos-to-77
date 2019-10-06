@@ -22,7 +22,7 @@ mathewZMD
     (global-set-key (kbd "<f5>") 'revert-buffer)
     (setenv "BROWSER" "firefox")
 
-    (load-theme 'leuven)
+    (load-theme 'adwaita)
   #+END_SRC
 
 
