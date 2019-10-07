@@ -1,4 +1,4 @@
-+STARTUP: overview 
+#+STARTUP: overview 
 #+PROPERTY: header-args :comments yes :results silent
 * Packages to add or look into
 popup-kill-ring
