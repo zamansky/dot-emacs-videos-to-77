@@ -272,6 +272,17 @@ mathewZMD
 
 #+END_SRC
 
+* Functions
+#+BEGIN_SRC eamcs-lisp
+  
+    ;; font scaling
+    (use-package default-text-scale
+      :ensure t
+     :config
+      (global-set-key (kbd "C-M-=") 'default-text-scale-increase)
+      (global-set-key (kbd "C-M--") 'default-text-scale-decrease))
+
+#+END_SRC
 * personal keymap
 #+BEGIN_SRC emacs-lisp
 ;; unset C- and M- digit keys
