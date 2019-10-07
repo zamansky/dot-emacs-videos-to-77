@@ -34,15 +34,6 @@ mathewZMD
 
   #+END_SRC
 
-* Regex
-#+BEGIN_SRC emacs-lisp
-(use-package pcre2el
-:ensure t
-:config 
-(pcre-mode)
-)
-#+END_SRC
-
 * Magit
 #+BEGIN_SRC emacs-lisp
 
@@ -87,7 +78,7 @@ mathewZMD
 #+END_SRC
 
 
-* Interface packages
+* Interface and small packages 
 
 #+BEGIN_SRC emacs-lisp
 (use-package posframe :ensure t)
@@ -97,6 +88,14 @@ mathewZMD
       :config
       (which-key-mode))
 
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(use-package pcre2el
+:ensure t
+:config 
+(pcre-mode)
+)
 #+END_SRC
 
 
