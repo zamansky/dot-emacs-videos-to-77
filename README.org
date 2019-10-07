@@ -273,7 +273,7 @@
 #+END_SRC
 
 * Functions
-#+BEGIN_SRC eamcs-lisp
+#+BEGIN_SRC emacs-lisp
   
     ;; font scaling
     (use-package default-text-scale
