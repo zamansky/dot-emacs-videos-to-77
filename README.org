@@ -25,7 +25,38 @@ mathewZMD
     (load-theme 'adwaita)
   #+END_SRC
 
+* Flycheck
+  #+BEGIN_SRC emacs-lisp
+    (use-package flycheck
+      :ensure t
+      :init
+      (global-flycheck-mode t))
 
+  #+END_SRC
+
+* Regex
+#+BEGIN_SRC emacs-lisp
+(use-package pcre2el
+:ensure t
+:config 
+(pcre-mode)
+)
+#+END_SRC
+
+* Magit
+#+BEGIN_SRC emacs-lisp
+
+(use-package magit
+    :ensure t
+    :init
+    (progn
+    (bind-key "C-x g" 'magit-status)
+    ))
+
+(setq magit-status-margin
+  '(t "%Y-%m-%d %H:%M " magit-log-margin-width t 18))
+
+#+END_SRC
 * Swiper / Counsel
 #+BEGIN_SRC emacs-lisp
   (use-package counsel
@@ -54,6 +85,7 @@ mathewZMD
            ("M-x" . counsel-M-x)
            ("C-x C-f" . counsel-find-file)))
 #+END_SRC
+
 
 * Interface packages
 
@@ -157,7 +189,7 @@ mathewZMD
 
 #+END_SRC
 
-*  LSP
+* LSP
 #+BEGIN_SRC emacs-lisp
 (use-package lsp-mode
   :ensure t
