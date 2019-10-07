@@ -1,12 +1,12 @@
 #+STARTUP: overview 
 #+PROPERTY: header-args :comments yes :results silent
 * Packages to add or look into
-popup-kill-ring
-discover-my-major
-aweshell
-treemacs (treemacs-magit, projectile)
-amx
-mathewZMD
+- popup-kill-ring
+- discover-my-major
+- aweshell
+- treemacs (treemacs-magit, projectile)
+- amx
+- mathewZMD
 
 * repos
 #+BEGIN_SRC emacs-lisp
