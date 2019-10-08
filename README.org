@@ -22,45 +22,48 @@
     (global-set-key (kbd "<f5>") 'revert-buffer)
     (setenv "BROWSER" "firefox")
 
-    ;;(load-theme 'adwaita)
-(use-package faff-theme
-:ensure t
-)
-(load-theme 'faff t)
+    (use-package faff-theme
+      :ensure t
+      )
+    (load-theme 'faff t)
 
-(use-package doom-modeline
+    (use-package doom-modeline
       :ensure t)
-
-(doom-modeline-init)
-
-
-  ; expand the marked region in semantic increments (negative prefix to reduce region)
-  (use-package expand-region
-  :ensure t
-  :config 
-  (global-set-key (kbd "C-=") 'er/expand-region))
-
-(setq save-interprogram-paste-before-kill t)
-
-  ; deletes all the whitespace when you hit backspace or delete
-  (use-package hungry-delete
-  :ensure t
-  :config
-  (global-hungry-delete-mode))
-
-(global-auto-revert-mode 1) ;; you might not want this
-(setq auto-revert-verbose nil) ;; or this
-(global-set-key (kbd "<f5>") 'revert-buffer)
-
-(use-package aggressive-indent
-:ensure t
-:config
-(global-aggressive-indent-mode 1)
-;;(add-to-list 'aggressive-indent-excluded-modes 'html-mode)
-)
+    (doom-modeline-init)
 
 
+    ;; expand the marked region in semantic increments
+    ;;(negative prefix to reduce region)
+    (use-package expand-region
+      :ensure t
+      :config 
+      (global-set-key (kbd "C-=") 'er/expand-region))
 
+    (setq save-interprogram-paste-before-kill t)
+
+    (use-package hungry-delete
+      :ensure t
+      :config
+      (global-hungry-delete-mode))
+
+    (global-auto-revert-mode 1) ;; you might not want this
+    (setq auto-revert-verbose nil) ;; or this
+    (global-set-key (kbd "<f5>") 'revert-buffer)
+
+    (use-package aggressive-indent
+      :ensure t
+      :config
+      (global-aggressive-indent-mode 1)
+      ;;(add-to-list 'aggressive-indent-excluded-modes 'html-mode)
+      )
+
+
+    (use-package ace-window
+      :ensure t
+      :config1
+      (setq aw-scope 'global) ;; was frame
+      (global-set-key (kbd "C-x O") 'other-frame)
+      (global-set-key [remap other-window] 'ace-window))
   #+END_SRC
 
 * Swiper / Ivy / Counsel
