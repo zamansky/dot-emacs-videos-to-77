@@ -26,9 +26,48 @@
 (use-package faff-theme
 :ensure t
 )
-(load-theme 'faff)
+(load-theme 'faff t)
   #+END_SRC
 
+* IBUFFER
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-x C-b") 'ibuffer)
+  (setq ibuffer-saved-filter-groups
+        (quote (("default"
+                 ("dired" (mode . dired-mode))
+                 ("org" (name . "^.*org$"))
+                 ("magit" (mode . magit-mode))
+                 ("IRC" (or (mode . circe-channel-mode) (mode . circe-server-mode)))
+                 ("web" (or (mode . web-mode) (mode . js2-mode)))
+                 ("shell" (or (mode . eshell-mode) (mode . shell-mode)))
+                 ("mu4e" (or
+
+                          (mode . mu4e-compose-mode)
+                          (name . "\*mu4e\*")
+                          ))
+                 ("programming" (or
+                                 (mode . clojure-mode)
+                                 (mode . clojurescript-mode)
+                                 (mode . python-mode)
+                                 (mode . c++-mode)))
+                 ("emacs" (or
+                           (name . "^\\*scratch\\*$")
+                           (name . "^\\*Messages\\*$")))
+                 ))))
+  (add-hook 'ibuffer-mode-hook
+            (lambda ()
+              (ibuffer-auto-mode 1)
+              (ibuffer-switch-to-saved-filter-groups "default")))
+
+  ;; don't show these
+                                          ;(add-to-list 'ibuffer-never-show-predicates "zowie")
+  ;; Don't show filter groups if there are no buffers in that group
+  (setq ibuffer-show-empty-filter-groups nil)
+
+  ;; Don't ask for confirmation to delete marked buffers
+  (setq ibuffer-expert t)
+
+#+END_SRC
 * Flycheck
   #+BEGIN_SRC emacs-lisp
     (use-package flycheck
@@ -37,50 +76,6 @@
       (global-flycheck-mode t))
 
   #+END_SRC
-
-* Magit
-#+BEGIN_SRC emacs-lisp
-
-(use-package magit
-    :ensure t
-    :init
-    (progn
-    (bind-key "C-x g" 'magit-status)
-    ))
-
-(setq magit-status-margin
-  '(t "%Y-%m-%d %H:%M " magit-log-margin-width t 18))
-
-#+END_SRC
-* Swiper / Counsel
-#+BEGIN_SRC emacs-lisp
-  (use-package counsel
-    :ensure t
-    :bind
-    (("M-y" . counsel-yank-pop)
-     :map ivy-minibuffer-map
-     ("M-y" . ivy-next-line)))
-
-  (use-package ivy
-    :ensure t
-    :diminish (ivy-mode)
-    :bind (("C-x b" . ivy-switch-buffer))
-    :config
-    (ivy-mode 1)
-    (setq ivy-use-virtual-buffers t)
-    (setq ivy-count-format "%d/%d ")
-    (setq ivy-display-style 'fancy))
-
-
-  (use-package swiper
-    :ensure t
-    :bind (("C-s" . swiper-isearch)
-           ("C-r" . swiper-isearch)
-           ("C-c C-r" . ivy-resume)
-           ("M-x" . counsel-M-x)
-           ("C-x C-f" . counsel-find-file)))
-#+END_SRC
-
 
 * Interface and small packages 
 
@@ -102,8 +97,31 @@
 )
 #+END_SRC
 
+* Magit and git stuff
+#+BEGIN_SRC emacs-lisp
 
-* org-mode stuff
+(use-package magit
+    :ensure t
+    :init
+    (progn
+    (bind-key "C-x g" 'magit-status)
+    ))
+
+(setq magit-status-margin
+  '(t "%Y-%m-%d %H:%M " magit-log-margin-width t 18))
+
+    (use-package git-timemachine
+    :ensure t
+    )
+   (use-package git-gutter
+    :ensure t
+    :init
+    (global-git-gutter-mode +1))
+
+ 
+#+END_SRC
+
+* ORG-mode stuff
   #+BEGIN_SRC emacs-lisp
     (custom-set-variables
      '(org-directory "~/Sync/orgfiles")
@@ -278,13 +296,13 @@
 
 * Functions
 #+BEGIN_SRC emacs-lisp
-  
-    ;; font scaling
-    (use-package default-text-scale
-      :ensure t
-     :config
-      (global-set-key (kbd "C-M-=") 'default-text-scale-increase)
-      (global-set-key (kbd "C-M--") 'default-text-scale-decrease))
+
+  ;; font scaling
+  (use-package default-text-scale
+    :ensure t
+   :config
+    (global-set-key (kbd "C-M-=") 'default-text-scale-increase)
+    (global-set-key (kbd "C-M--") 'default-text-scale-decrease))
 
 #+END_SRC
 * personal keymap
