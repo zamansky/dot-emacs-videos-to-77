@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name: post
+# key: post
+# expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region 'nil))
+# --
+---
+title: ${1:`(capitalize (replace-regexp-in-string "-\\|_" " " (file-name-base))))`}
+date: `(format-time-string "%Y-%m-%dT%H:%M:%S-04:00" (current-time))`
+tags: 
+categories: 
+draft: true
+--- 
+
+$0
