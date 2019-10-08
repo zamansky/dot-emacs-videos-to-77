@@ -22,7 +22,11 @@
     (global-set-key (kbd "<f5>") 'revert-buffer)
     (setenv "BROWSER" "firefox")
 
-    (load-theme 'adwaita)
+    ;;(load-theme 'adwaita)
+(use-package faff-theme
+:ensure t
+)
+(load-theme 'faff)
   #+END_SRC
 
 * Flycheck
