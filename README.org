@@ -27,6 +27,12 @@
 :ensure t
 )
 (load-theme 'faff t)
+
+(use-package doom-modeline
+      :ensure t)
+
+(doom-modeline-init)
+
   #+END_SRC
 
 * Swiper / Ivy / Counsel
@@ -125,6 +131,8 @@
 * Interface and small packages 
 
 #+BEGIN_SRC emacs-lisp
+
+(use-package try :ensure t)
 (use-package posframe :ensure t)
  (use-package iedit
   :ensure t)
@@ -228,7 +236,6 @@
   
   #+END_SRC
 
-
 * Load other files
    #+BEGIN_SRC emacs-lisp
      (defun load-if-exists (f)
@@ -240,7 +247,6 @@
      (load-if-exists "~/Sync/shared/not-for-github.el")
 
    #+END_SRC
-
 
 
 * Snippets
@@ -297,7 +303,6 @@
   (defadvice lsp-ui-imenu (after hide-lsp-ui-imenu-mode-line activate)
     (setq mode-line-format nil)))
 #+END_SRC
-
 
 
 * Company
