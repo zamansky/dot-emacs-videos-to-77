@@ -21,6 +21,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   '("9fe9a86557144c43f9008daaf4bbee29498e30a3d957f6cf42b63b35cf598fd1" default))
  '(org-confirm-babel-evaluate nil)
  '(org-default-notes-file (concat org-directory "/notes.org"))
  '(org-directory "~/Sync/orgfiles")
@@ -30,7 +32,7 @@
  '(org-startup-folded 'overview)
  '(org-startup-indented t)
  '(package-selected-packages
-   '(lsp-ui-doc lsp-ui lsp-clangd virtualenvwrapper company-lsp company lsp-mode circe-notifications circe org-gcal mu4e-alert htmlize org-bullets which-key posframe counsel use-package)))
+   '(faff-theme faff lsp-java default-text-scale lsp-ui-doc lsp-ui lsp-clangd virtualenvwrapper company-lsp company lsp-mode circe-notifications circe org-gcal mu4e-alert htmlize org-bullets which-key posframe counsel use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
