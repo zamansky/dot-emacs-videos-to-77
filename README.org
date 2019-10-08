@@ -336,6 +336,18 @@
 #+END_SRC
 
 
+* Projectile
+#+BEGIN_SRC emacs-lisp
+  (use-package projectile
+    :ensure t
+    :bind (:map projectile-mode-map
+                ("C-c p" . 'projectile-command-map))
+  
+    :config 
+    (projectile-mode +1))
+
+
+#+END_SRC
 * Company
 #+BEGIN_SRC emacs-lisp
 (use-package company
