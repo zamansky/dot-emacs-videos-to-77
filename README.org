@@ -60,7 +60,7 @@
 
     (use-package ace-window
       :ensure t
-      :config1
+      :config
       (setq aw-scope 'global) ;; was frame
       (global-set-key (kbd "C-x O") 'other-frame)
       (global-set-key [remap other-window] 'ace-window))
@@ -263,10 +263,37 @@
 
     (setq org-ditaa-jar-path "/usr/share/ditaa/ditaa.jar")
 
+  ;; babel stuff
+
+    (org-babel-do-load-languages
+     'org-babel-load-languages
+     '((python . t)
+       (emacs-lisp . t)
+(shell . t)
+       (C . t)
+    (js . t)
+       (ditaa . t)
+       (dot . t)
+       (org . t)
+    (latex . t )
+       ))
+  ;; projectile
 
   
   #+END_SRC
+* Parens
+#+BEGIN_SRC emacs-lisp
+(use-package smartparens
+:ensure t
+  :hook (prog-mode . smartparens-mode)
+  :custom
+  (sp-escape-quotes-after-insert nil)
+  :config
+  (require 'smartparens-config))
 
+(show-paren-mode t)
+
+#+END_SRC
 * Load other files
    #+BEGIN_SRC emacs-lisp
      (defun load-if-exists (f)
