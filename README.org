@@ -181,6 +181,13 @@
 :config 
 (pcre-mode)
 )
+
+(add-hook 'org-mode-hook 'turn-on-flyspell)
+(add-hook 'org-mode-hook 'turn-on-auto-fill)
+(add-hook 'mu4e-compose-mode-hook 'turn-on-flyspell)
+(add-hook 'mu4e-compose-mode-hook 'turn-on-auto-fill)
+
+
 #+END_SRC
 
 * Magit and git stuff
