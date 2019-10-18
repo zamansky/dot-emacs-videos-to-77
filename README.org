@@ -206,12 +206,13 @@
     (use-package git-timemachine
     :ensure t
     )
+
    (use-package git-gutter
     :ensure t
     :init
     (global-git-gutter-mode +1))
 
- 
+
 #+END_SRC
 
 * ORG-mode stuff
@@ -481,7 +482,12 @@
 
 #+RESULTS:
 
+* Markdown
+#+BEGIN_SRC emacs-lisp
+(use-package grip-mode 
+:ensure t)
 
+#+END_SRC
 * Functions
 #+BEGIN_SRC emacs-lisp
 
