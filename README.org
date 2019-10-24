@@ -270,7 +270,11 @@
     (use-package htmlize :ensure t)
 
     (setq org-ditaa-jar-path "/usr/share/ditaa/ditaa.jar")
-
+   (setq org-file-apps
+          (append '(
+                    ("\\.pdf\\'" . "evince %s")
+                    ("\\.x?html?\\'" . "/usr/bin/firefox %s")
+                    ) org-file-apps ))
   ;; babel stuff
 
     (org-babel-do-load-languages
