@@ -583,6 +583,15 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 
 
 #+END_SRC
+* Restclient
+#+BEGIN_SRC emacs-lisp
+(use-package restclient
+:ensure t)
+(use-package company-restclient
+:ensure t
+:config 
+(add-to-list 'company-backends 'company-restclient))
+#+END_SRC
 * personal keymap
 #+BEGIN_SRC emacs-lisp
 ;; unset C- and M- digit keys
