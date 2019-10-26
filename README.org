@@ -196,6 +196,27 @@
 :ensure t)
 
 #+END_SRC
+* Folding - Origami
+#+BEGIN_SRC emacs-lisp
+(use-package origami
+:ensure t)
+
+(defhydra hydra-origami (:color red)
+  "
+  _o_pen node    _n_ext fold       toggle _f_orward
+  _c_lose node   _p_revious fold   toggle _a_ll
+  "
+  ("o" origami-open-node)
+  ("c" origami-close-node)
+  ("n" origami-next-fold)
+  ("p" origami-previous-fold)
+  ("f" origami-forward-toggle-node)
+  ("a" origami-toggle-all-nodes))
+
+
+
+
+#+END_SRC
 * Magit and git stuff
 #+BEGIN_SRC emacs-lisp
 
@@ -615,6 +636,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 (global-set-key (kbd "C-z") 'z-map) ;; was C-1
 (define-key z-map (kbd "k") 'compile)
 (define-key z-map (kbd "c") 'hydra-multiple-cursors/body)
+(define-key z-map (kbd "f") 'hydra-origami/body)
 (define-key z-map (kbd "m") 'mu4e)
 (define-key z-map (kbd "1") 'org-global-cycle)
 (define-key z-map (kbd "a") 'org-agenda-show-agenda-and-todo)
@@ -625,7 +647,6 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 
 (define-key z-map (kbd "s") 'flyspell-correct-word-before-point)
 (define-key z-map (kbd "i") 'z/load-iorg)
-(define-key z-map (kbd "f") 'origami-toggle-node)
 (define-key z-map (kbd "w") 'z/swap-windows)
 (define-key z-map (kbd "*") 'calc)
 
