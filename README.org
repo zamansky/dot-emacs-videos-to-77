@@ -364,7 +364,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 :config
 (setq org-msg-options "html-postamble:nil H:5 num:nil ^:{} toc:nil")
 (setq org-msg-startup "hidestars indent inlineimages")
-(setq org-msg-greeting-fmt "\nHi %s,\n\n")
+(setq org-msg-greeting-fmt "\nmHi %s,\n\n")
 (setq org-msg-greeting-fmt-mailto t)
 (setq org-msg-signature "
 
@@ -373,6 +373,7 @@ Regards,
 #+begin_signature
 -- *Mike* \\\\
 #+end_signature")
+(org-msg-mode)
 )
   
   #+END_SRC
