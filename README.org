@@ -484,6 +484,7 @@ Regards,
 (use-package company-lsp
   :ensure t
   :config
+(setq compnay-lsp-enable-snippet t)
  (push 'company-lsp company-backends)
 )
 #+END_SRC
