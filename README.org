@@ -363,7 +363,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 :config
 (setq org-msg-options "html-postamble:nil H:5 num:nil ^:{} toc:nil")
 (setq org-msg-startup "hidestars indent inlineimages")
-(setq org-msg-greeting-fmt "\nmHi %s,\n\n")
+(setq org-msg-greeting-fmt "\nHi %s,\n\n")
 (setq org-msg-greeting-fmt-mailto t)
 (setq org-msg-signature "
 
@@ -374,7 +374,20 @@ Regards,
 #+end_signature")
 (org-msg-mode)
 )
-  
+
+(define-mail-user-agent 'mu4e-user-agent
+888    'mu4e~compose-mail
+889    'message-send-and-exit
+890    'message-kill-buffer
+891    'message-send-hook)
+892  ;; Without this `mail-user-agent' cannot be set to `mu4e-user-agent'
+893  ;; through customize, as the custom type expects a function.  Not
+894  ;; sure whether this function is actually ever used; if it is then
+895  ;; returning the symbol is probably the correct thing to do, as other
+896  ;; such functions suggest.
+897  (defun mu4e-user-agent ()
+898    "Return the `mu4e-user-agent' symbol."
+899    'mu4e-user-agent)  
   #+END_SRC
 * Parens
 #+BEGIN_SRC emacs-lisp
