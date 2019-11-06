@@ -376,18 +376,18 @@ Regards,
 )
 
 (define-mail-user-agent 'mu4e-user-agent
-888    'mu4e~compose-mail
-889    'message-send-and-exit
-890    'message-kill-buffer
-891    'message-send-hook)
-892  ;; Without this `mail-user-agent' cannot be set to `mu4e-user-agent'
-893  ;; through customize, as the custom type expects a function.  Not
-894  ;; sure whether this function is actually ever used; if it is then
-895  ;; returning the symbol is probably the correct thing to do, as other
-896  ;; such functions suggest.
-897  (defun mu4e-user-agent ()
-898    "Return the `mu4e-user-agent' symbol."
-899    'mu4e-user-agent)  
+  'mu4e~compose-mail
+  'message-send-and-exit
+  'message-kill-buffer
+  'message-send-hook)
+;; Without this `mail-user-agent' cannot be set to `mu4e-user-agent'
+;; through customize, as the custom type expects a function.  Not
+;; sure whether this function is actually ever used; if it is then
+;; returning the symbol is probably the correct thing to do, as other
+;; such functions suggest.
+(defun mu4e-user-agent ()
+  "Return the `mu4e-user-agent' symbol."
+  'mu4e-user-agent)  
   #+END_SRC
 * Parens
 #+BEGIN_SRC emacs-lisp
