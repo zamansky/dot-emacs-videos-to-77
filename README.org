@@ -284,110 +284,114 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 
 * ORG-mode stuff
   #+BEGIN_SRC emacs-lisp
-    (custom-set-variables
-     '(org-directory "~/Sync/orgfiles")
-     '(org-default-notes-file (concat org-directory "/notes.org"))
-     '(org-export-html-postamble nil)
-     '(org-hide-leading-stars t)
-     '(org-startup-folded (quote overview))
-     '(org-startup-indented t)
-     '(org-confirm-babel-evaluate nil)
-     '(org-src-fontify-natively t)
-     )
+        (custom-set-variables
+         '(org-directory "~/Sync/orgfiles")
+         '(org-default-notes-file (concat org-directory "/notes.org"))
+         '(org-export-html-postamble nil)
+         '(org-hide-leading-stars t)
+         '(org-startup-folded (quote overview))
+         '(org-startup-indented t)
+         '(org-confirm-babel-evaluate nil)
+         '(org-src-fontify-natively t)
+         )
 
 
-    (use-package org-bullets
-      :ensure t
-      :config
-      (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+        (use-package org-bullets
+          :ensure t
+          :config
+          (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
       
 
-    (global-set-key "\C-ca" 'org-agenda)
-    (setq org-agenda-start-on-weekday nil)
-    (setq org-agenda-custom-commands
-          '(("c" "Simple agenda view"
-             ((agenda "")
-              (alltodo "")))))
+        (global-set-key "\C-ca" 'org-agenda)
+        (setq org-agenda-start-on-weekday nil)
+        (setq org-agenda-custom-commands
+              '(("c" "Simple agenda view"
+                 ((agenda "")
+                  (alltodo "")))))
 
-    (global-set-key (kbd "C-c c") 'org-capture)
+        (global-set-key (kbd "C-c c") 'org-capture)
 
-    (setq org-agenda-files (list "~/Sync/orgfiles/gcal.org"
-                                 "~/Sync/orgfiles/soe-cal.org"
-                                 "~/Sync/orgfiles/i.org"))
-    (setq org-capture-templates
-          '(("a" "Appointment" entry (file  "~/Sync/orgfiles/gcal.org" )
-             "* %?\n\n%^T\n\n:PROPERTIES:\n\n:END:\n\n")
-            ("l" "Link" entry (file+headline "~/Sync/orgfiles/links.org" "Links")
-             "* %? %^L %^g \n%T" :prepend t)
-            ("b" "Blog idea" entry (file+headline "~/Sync/orgfiles/i.org" "Blog Topics:")
-             "* %?\n%T" :prepend t)
-            ("t" "To Do Item" entry (file+headline "~/Sync/orgfiles/i.org" "To Do and Notes")
-             "* TODO %?\n%u" :prepend t)
-            ("m" "Mail To Do" entry (file+headline "~/Sync/orgfiles/i.org" "To Do and Notes")
-             "* TODO %a\n %?" :prepend t)
-            ("g" "GMail To Do" entry (file+headline "~/Sync/orgfiles/i.org" "To Do and Notes")
-             "* TODO %^L\n %?" :prepend t)
-            ("n" "Note" entry (file+headline "~/Sync/orgfiles/i.org" "Notes")
-             "* %u %? " :prepend t)
-            ))
+        (setq org-agenda-files (list "~/Sync/orgfiles/gcal.org"
+                                     "~/Sync/orgfiles/soe-cal.org"
+                                     "~/Sync/orgfiles/i.org"))
+        (setq org-capture-templates
+              '(("a" "Appointment" entry (file  "~/Sync/orgfiles/gcal.org" )
+                 "* %?\n\n%^T\n\n:PROPERTIES:\n\n:END:\n\n")
+                ("l" "Link" entry (file+headline "~/Sync/orgfiles/links.org" "Links")
+                 "* %? %^L %^g \n%T" :prepend t)
+                ("b" "Blog idea" entry (file+headline "~/Sync/orgfiles/i.org" "Blog Topics:")
+                 "* %?\n%T" :prepend t)
+                ("t" "To Do Item" entry (file+headline "~/Sync/orgfiles/i.org" "To Do and Notes")
+                 "* TODO %?\n%u" :prepend t)
+                ("m" "Mail To Do" entry (file+headline "~/Sync/orgfiles/i.org" "To Do and Notes")
+                 "* TODO %a\n %?" :prepend t)
+                ("g" "GMail To Do" entry (file+headline "~/Sync/orgfiles/i.org" "To Do and Notes")
+                 "* TODO %^L\n %?" :prepend t)
+                ("n" "Note" entry (file+headline "~/Sync/orgfiles/i.org" "Notes")
+                 "* %u %? " :prepend t)
+                ))
   
 
 
-    (use-package htmlize :ensure t)
+        (use-package htmlize :ensure t)
 
-    (setq org-ditaa-jar-path "/usr/share/ditaa/ditaa.jar")
-   (setq org-file-apps
-          (append '(
-                    ("\\.pdf\\'" . "evince %s")
-                    ("\\.x?html?\\'" . "/usr/bin/firefox %s")
-                    ) org-file-apps ))
-  ;; babel stuff
+        (setq org-ditaa-jar-path "/usr/share/ditaa/ditaa.jar")
+       (setq org-file-apps
+              (append '(
+                        ("\\.pdf\\'" . "evince %s")
+                        ("\\.x?html?\\'" . "/usr/bin/firefox %s")
+                        ) org-file-apps ))
+      ;; babel stuff
 
-    (org-babel-do-load-languages
-     'org-babel-load-languages
-     '((python . t)
-       (emacs-lisp . t)
-(shell . t)
-       (C . t)
-    (js . t)
-       (ditaa . t)
-       (dot . t)
-       (org . t)
-    (latex . t )
-       ))
-  ;; projectile
+        (org-babel-do-load-languages
+         'org-babel-load-languages
+         '((python . t)
+           (emacs-lisp . t)
+    (shell . t)
+           (C . t)
+        (js . t)
+           (ditaa . t)
+           (dot . t)
+           (org . t)
+        (latex . t )
+           ))
+      ;; projectile
 
 
-(use-package org-msg
-:ensure t
-:config
-(setq org-msg-options "html-postamble:nil H:5 num:nil ^:{} toc:nil")
-(setq org-msg-startup "hidestars indent inlineimages")
-(setq org-msg-greeting-fmt "\nHi %s,\n\n")
-(setq org-msg-greeting-fmt-mailto t)
-(setq org-msg-signature "
+(setq mail-user-agent 'mu4e-user-agent)
 
-Regards,
+    (use-package org-msg
+    :ensure t
+    :config
+    (setq org-msg-options "html-postamble:nil H:5 num:nil ^:{} toc:nil")
+    (setq org-msg-startup "hidestars indent inlineimages")
+    (setq org-msg-greeting-fmt "\nHi %s,\n\n")
+    (setq org-msg-greeting-fmt-mailto t)
+    (setq org-msg-signature "
 
-#+begin_signature
--- *Mike* \\\\
-#+end_signature")
-(org-msg-mode)
-)
+    Regards,
 
-(define-mail-user-agent 'mu4e-user-agent
-  'mu4e~compose-mail
-  'message-send-and-exit
-  'message-kill-buffer
-  'message-send-hook)
-;; Without this `mail-user-agent' cannot be set to `mu4e-user-agent'
-;; through customize, as the custom type expects a function.  Not
-;; sure whether this function is actually ever used; if it is then
-;; returning the symbol is probably the correct thing to do, as other
-;; such functions suggest.
-(defun mu4e-user-agent ()
-  "Return the `mu4e-user-agent' symbol."
-  'mu4e-user-agent)  
+    ,#+begin_signature
+    -- *Mike* \\\\
+    ,#+end_signature")
+    (org-msg-mode)
+    )
+
+
+
+    ;; (define-mail-user-agent 'mu4e-user-agent
+    ;;   'mu4e~compose-mail
+    ;;   'message-send-and-exit
+    ;;   'message-kill-buffer
+    ;;   'message-send-hook)
+    ;; ;; Without this `mail-user-agent' cannot be set to `mu4e-user-agent'
+    ;; ;; through customize, as the custom type expects a function.  Not
+    ;; ;; sure whether this function is actually ever used; if it is then
+    ;; ;; returning the symbol is probably the correct thing to do, as other
+    ;; ;; such functions suggest.
+    ;; (defun mu4e-user-agent ()
+    ;;   "Return the `mu4e-user-agent' symbol."
+    ;;   'mu4e-user-agent)  
   #+END_SRC
 * Parens
 #+BEGIN_SRC emacs-lisp
