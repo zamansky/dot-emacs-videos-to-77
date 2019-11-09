@@ -474,6 +474,9 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 
 * Projectile
 #+BEGIN_SRC emacs-lisp
+(use-package ripgrep
+:ensure t)
+
   (use-package projectile
     :ensure t
     :bind (:map projectile-mode-map
