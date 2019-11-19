@@ -430,7 +430,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   (lsp-auto-guess-root nil)
   (lsp-prefer-flymake nil) ; Use flycheck instead of flymake
   :bind (:map lsp-mode-map ("C-c C-f" . lsp-format-buffer))
-  :hook ((python-mode c-mode c++-mode) . lsp))
+  :hook ((python-mode) . lsp))
 
 
 (use-package lsp-ui
@@ -515,8 +515,30 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 * C++
 #+BEGIN_SRC emacs-lisp
 
-(setq lsp-clangd-executable "clangd-6.0")
-(setq lsp-clients-clangd-executable "clangd-6.0")
+(use-package company-irony
+:ensure t
+:config 
+(add-to-list 'company-backends 'company-irony)
+
+)
+
+(use-package irony
+:ensure t
+:config
+(add-hook 'c++-mode-hook 'irony-mode)
+(add-hook 'c-mode-hook 'irony-mode)
+(add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+)
+
+(use-package irony-eldoc
+:ensure t
+:config
+(add-hook 'irony-mode-hook #'irony-eldoc))
+
+
+
+;;(setq lsp-clangd-executable "clangd-6.0")
+;;(setq lsp-clients-clangd-executable "clangd-6.0")
 
 #+END_SRC
 
