@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: hl
+# key: hl
+# expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region 'nil))
+# --
+{{< highlight $1 >}}
+
+$0
+
+{{< /highlight >}}
+
