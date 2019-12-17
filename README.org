@@ -375,7 +375,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
     ,#+begin_signature
     -- *Mike* \\\\
     ,#+end_signature")
-  (org-msg-mode)
+  ;;(org-msg-mode)
   )
 
 
