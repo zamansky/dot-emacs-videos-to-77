@@ -25,8 +25,11 @@
     (use-package cloud-theme :ensure t)
     (use-package moe-theme :ensure t)
     (use-package zenburn-theme :ensure t)
-    (use-package spacemacs-theme :ensure t)
-
+    (use-package monokai-theme :ensure t)
+    (use-package gruvbox-theme :ensure t)
+    (use-package ample-theme :ensure t)
+    (use-package ample-zen-theme :ensure t)
+    (use-package alect-themes :ensure t)
     (use-package faff-theme
       :ensure t
       )
@@ -71,6 +74,45 @@
       (global-set-key [remap other-window] 'ace-window))
   #+END_SRC
 
+#+BEGIN_SRC emacs-lisp
+
+(use-package try :ensure t)
+(use-package posframe :ensure t)
+ (use-package iedit
+  :ensure t)
+ 
+    (use-package which-key
+      :ensure t 
+      :config
+      (which-key-mode))
+
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(use-package pcre2el
+:ensure t
+:config 
+(pcre-mode)
+)
+
+(add-hook 'org-mode-hook 'turn-on-flyspell)
+(add-hook 'org-mode-hook 'turn-on-auto-fill)
+(add-hook 'mu4e-compose-mode-hook 'turn-on-flyspell)
+(add-hook 'mu4e-compose-mode-hook 'turn-on-auto-fill)
+
+
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(use-package hlinum
+:ensure t
+:config
+(hlinum-activate)
+(global-linum-mode)
+
+)
+
+#+END_SRC
 * Swiper / Ivy / Counsel
   Swiper gives us a really efficient incremental search with regular expressions
   and Ivy / Counsel replace a lot of ido or helms completion functionality
@@ -164,36 +206,7 @@
 
   #+END_SRC
 
-* Interface and small packages 
 
-#+BEGIN_SRC emacs-lisp
-
-(use-package try :ensure t)
-(use-package posframe :ensure t)
- (use-package iedit
-  :ensure t)
- 
-    (use-package which-key
-      :ensure t 
-      :config
-      (which-key-mode))
-
-#+END_SRC
-
-#+BEGIN_SRC emacs-lisp
-(use-package pcre2el
-:ensure t
-:config 
-(pcre-mode)
-)
-
-(add-hook 'org-mode-hook 'turn-on-flyspell)
-(add-hook 'org-mode-hook 'turn-on-auto-fill)
-(add-hook 'mu4e-compose-mode-hook 'turn-on-flyspell)
-(add-hook 'mu4e-compose-mode-hook 'turn-on-auto-fill)
-
-
-#+END_SRC
 
 * Hydra
 #+BEGIN_SRC emacs-lisp
@@ -239,10 +252,13 @@
     :ensure t
     )
 
-   (use-package git-gutter
-    :ensure t
-    :init
-    (global-git-gutter-mode +1))
+(use-package git-gutter-fringe
+:ensure t
+:config
+(global-git-gutter-mode))
+
+
+
 
 (use-package smerge-mode
   :after hydra
@@ -615,6 +631,8 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   (defadvice lsp-ui-imenu (after hide-lsp-ui-imenu-mode-line activate)
     (setq mode-line-format nil)))
 #+END_SRC
+
+
 
 
 * Projectile
