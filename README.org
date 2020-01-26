@@ -20,7 +20,11 @@
     (tool-bar-mode -1)
     (fset 'yes-or-no-p 'y-or-n-p)
     (global-set-key (kbd "<f5>") 'revert-buffer)
-    (setenv "BROWSER" "firefox")
+    (setenv "BROWSER" "firefox")t
+
+    (use-package cloud-theme :ensure t)
+    (use-package moe-theme :ensure t)
+    (use-package zenburn-theme :ensure t)
 
     (use-package faff-theme
       :ensure t
@@ -112,7 +116,7 @@
   #+END_SRC
 
 * IBUFFER
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp 
   (global-set-key (kbd "C-x C-b") 'ibuffer)
   (setq ibuffer-saved-filter-groups
         (quote (("default"
@@ -808,6 +812,20 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 :ensure t
 :config 
 (add-to-list 'company-backends 'company-restclient))
+#+END_SRC
+* focus mode
+#+BEGIN_SRC emacs-lisp
+(use-package focus
+:ensure t
+)
+#+END_SRC
+* ivy-rich
+#+BEGIN_SRC emacs-lisp
+(use-package ivy-rich
+:ensure t
+:config
+(ivy-rich-mode 1)
+)
 #+END_SRC
 * personal keymap
 #+BEGIN_SRC emacs-lisp
