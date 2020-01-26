@@ -25,6 +25,7 @@
     (use-package cloud-theme :ensure t)
     (use-package moe-theme :ensure t)
     (use-package zenburn-theme :ensure t)
+    (use-package spacemacs-theme :ensure t)
 
     (use-package faff-theme
       :ensure t
