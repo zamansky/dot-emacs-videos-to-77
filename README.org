@@ -1,6 +1,7 @@
 #+STARTUP: overview 
 #+PROPERTY: header-args :comments yes :results silent
 * Packages to add or look into
+- mbsync
 - popup-kill-ring
 - discover-my-major
 - aweshell
