@@ -7,7 +7,17 @@
 - treemacs (treemacs-magit, projectile)
 - amx
 - mathewZMD
-
+- ivy-omni-org
+- ivy-explorer
+- ivy-rich
+- live-py
+  - from unittest import TestCast
+  - class addTest(TestCase)  -- test_name -- self.assertEqual(a,b)
+  - C-c M-d
+- cloud-theme
+- general.el
+- focus mode
+- multiple cursors again
 * repos
 #+BEGIN_SRC emacs-lisp
 (add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
@@ -19,7 +29,7 @@
     (setq inhibit-startup-message t)
     (tool-bar-mode -1)
     (fset 'yes-or-no-p 'y-or-n-p)
-    (global-set-key (kbd "<f5>") 'revert-buffer)
+
     (setenv "BROWSER" "firefox")t
 
     (use-package cloud-theme :ensure t)
@@ -33,7 +43,7 @@
     (use-package faff-theme
       :ensure t
       )
-    (load-theme 'faff t)
+    (load-theme 'cloud t)
 
     (use-package doom-modeline
       :ensure t)
@@ -103,7 +113,7 @@
 
 #+END_SRC
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp 
 (use-package hlinum
 :ensure t
 :config
@@ -111,7 +121,6 @@
 (global-linum-mode)
 
 )
-
 #+END_SRC
 * Swiper / Ivy / Counsel
   Swiper gives us a really efficient incremental search with regular expressions
