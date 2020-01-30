@@ -44,7 +44,7 @@
     (use-package faff-theme
       :ensure t
       )
-    (load-theme 'cloud t)
+    (load-theme 'gruvbox-light-soft t)
 
     (use-package doom-modeline
       :ensure t)
@@ -877,6 +877,12 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 :config
 (ivy-rich-mode 1)
 )
+#+END_SRC
+* aweshell
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'load-path (expand-file-name "~/Sync/shared/aweshell"))
+
+(require 'aweshell)
 #+END_SRC
 * personal keymap
 #+BEGIN_SRC emacs-lisp

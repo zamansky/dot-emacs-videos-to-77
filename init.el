@@ -18,6 +18,18 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   '("8e797edd9fa9afec181efbfeeebf96aeafbd11b69c4c85fa229bb5b9f7f7e66c" default))
+ '(lsp-auto-guess-root nil)
+ '(lsp-prefer-flymake nil)
+ '(lsp-ui-doc-border "unspecified-fg" t)
+ '(lsp-ui-doc-enable t t)
+ '(lsp-ui-doc-header t t)
+ '(lsp-ui-doc-include-signature t t)
+ '(lsp-ui-doc-position 'top t)
+ '(lsp-ui-sideline-enable nil t)
+ '(lsp-ui-sideline-ignore-duplicate t t)
+ '(lsp-ui-sideline-show-code-actions nil t)
  '(org-confirm-babel-evaluate nil)
  '(org-default-notes-file (concat org-directory "/notes.org"))
  '(org-directory "~/Sync/orgfiles")
@@ -27,7 +39,7 @@
  '(org-startup-folded 'overview)
  '(org-startup-indented t)
  '(package-selected-packages
-   '(ivy-rich focus multiple-cursors company-restclient restclient default-text-scale grip-mode dumb-jump cider irony-eldoc company-irony virtualenvwrapper company-lsp company projectile ripgrep lsp-mode yasnippet-classic-snippets yasnippet-snippets yasnippet circe-notifications circe org-gcal mu4e-alert rainbow-delimiters smartparens org-msg htmlize org-bullets forge git-gutter-fringe git-timemachine magit origami hydra flycheck counsel hlinum pcre2el which-key iedit posframe try ace-window aggressive-indent hungry-delete expand-region doom-modeline faff-theme alect-themes ample-zen-theme ample-theme gruvbox-theme monokai-theme zenburn-theme moe-theme cloud-theme use-package)))
+   '(live-py-mode ivy-rich focus multiple-cursors company-restclient restclient default-text-scale grip-mode dumb-jump cider irony-eldoc company-irony virtualenvwrapper company-lsp company projectile ripgrep lsp-mode yasnippet-classic-snippets yasnippet-snippets yasnippet circe-notifications circe org-gcal mu4e-alert rainbow-delimiters smartparens org-msg htmlize org-bullets forge git-gutter-fringe git-timemachine magit origami hydra flycheck counsel hlinum pcre2el which-key iedit posframe try ace-window aggressive-indent hungry-delete expand-region doom-modeline faff-theme alect-themes ample-zen-theme ample-theme gruvbox-theme monokai-theme zenburn-theme moe-theme cloud-theme use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
