@@ -1,6 +1,16 @@
 #+STARTUP: overview 
 #+PROPERTY: header-args :comments yes :results silent
 * Packages to add or look into
+- moom
+- telephone-line
+- org-download
+- spelling stuff
+- eyebrowse
+- smart-jump
+- deadgrep
+- diff-hl
+- YCMD maybe for emacs and header file completions
+- god mode
 - mbsync
 - popup-kill-ring
 - discover-my-major
@@ -11,14 +21,11 @@
 - ivy-omni-org
 - ivy-explorer
 - ivy-rich
-- live-py
-  - from unittest import TestCast
-  - class addTest(TestCase)  -- test_name -- self.assertEqual(a,b)
-  - C-c M-d
 - cloud-theme
 - general.el
 - focus mode
 - multiple cursors again
+- ranger /deer 
 * repos
 #+BEGIN_SRC emacs-lisp
 (add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
@@ -881,7 +888,6 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 * eshell / aweshell
 #+BEGIN_SRC emacs-lisp
 
-
 (add-to-list 'load-path (expand-file-name "~/Sync/shared/aweshell"))
 (setq aweshell-use-exec-path-from-shell t)
 (setq epe-show-python-info nil)
@@ -928,7 +934,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 (define-key z-map (kbd "s") 'flyspell-correct-word-before-point)
 (define-key z-map (kbd "i") 'z/load-iorg)
 (define-key z-map (kbd "*") 'calc)
-(define-key z-map (kbd "e") 'aweshell-dedicated-toggle)
+(define-key z-map (kbd "e") 'aweshell-toggle)
 
   (setq user-full-name "Mike Zamansky"
                           user-mail-address "mz631@hunter.cuny.edu")
