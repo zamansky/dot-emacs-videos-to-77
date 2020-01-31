@@ -883,19 +883,21 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 
 
 (add-to-list 'load-path (expand-file-name "~/Sync/shared/aweshell"))
-
+(setq aweshell-use-exec-path-from-shell t)
+(setq epe-show-python-info nil)
 (require 'aweshell)
 
-(use-package exec-path-from-shell
+(use-package fish-completion
 :ensure t
 :config
-(exec-path-from-shell-initialize))
+(global-fish-completion-mode))
+
 #+END_SRC
 * personal keymap
 #+BEGIN_SRC emacs-lisp
 ;; unset C- and M- digit keys
 ;(dotimes (n 10)
-;  (global-unset-key (kbd (format "C-%d" n)))
+;  (global-unset-key (kbd (format C-%d"" n)))
 ;  (global-unset-key (kbd (format "M-%d" n)))
 ;  )
 
