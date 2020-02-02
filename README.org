@@ -888,15 +888,15 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 * eshell / aweshell
 #+BEGIN_SRC emacs-lisp
 
-(add-to-list 'load-path (expand-file-name "~/Sync/shared/aweshell"))
-(setq aweshell-use-exec-path-from-shell t)
-(setq epe-show-python-info nil)
-(require 'aweshell)
+  ;; (add-to-list 'load-path (expand-file-name "~/Sync/shared/aweshell"))
+  ;; (setq aweshell-use-exec-path-from-shell t)
+  ;; (setq epe-show-python-info nil)
+  ;; (require 'aweshell)
 
-(use-package fish-completion
-:ensure t
-:config
-(global-fish-completion-mode))
+  (use-package fish-completion
+  :ensure t
+  :config
+  (global-fish-completion-mode))
 
 #+END_SRC
 * personal keymap
