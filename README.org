@@ -893,11 +893,30 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   ;; (setq epe-show-python-info nil)
   ;; (require 'aweshell)
 
+(use-package exec-path-from-shell
+:ensure t
+:config
+(exec-path-from-shell-initialize))
+
+
   (use-package fish-completion
   :ensure t
   :config
   (global-fish-completion-mode))
+(use-package eshell-prompt-extras :tangle no
+:ensure t
+:config
+(setq epe-show-python-info nil)
+)
 
+(use-package eshell-git-prompt
+:ensure t
+:config
+(eshell-git-prompt-use-theme 'git-radar)
+)
+
+
+(setq scroll-step 1)
 #+END_SRC
 * personal keymap
 #+BEGIN_SRC emacs-lisp
@@ -934,7 +953,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 (define-key z-map (kbd "s") 'flyspell-correct-word-before-point)
 (define-key z-map (kbd "i") 'z/load-iorg)
 (define-key z-map (kbd "*") 'calc)
-(define-key z-map (kbd "e") 'aweshell-toggle)
+(define-key z-map (kbd "e") 'eshell-switcher)
 
   (setq user-full-name "Mike Zamansky"
                           user-mail-address "mz631@hunter.cuny.edu")
