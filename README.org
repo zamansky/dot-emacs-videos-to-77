@@ -14,7 +14,6 @@
 - mbsync
 - popup-kill-ring
 - discover-my-major
-- aweshell
 - treemacs (treemacs-magit, projectile)
 - amx
 - mathewZMD
@@ -566,6 +565,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 (sp-local-pair 'c++-mode "/*" "*/" :post-handlers '((" | " "SPC")
                                                     ("* ||\n[i]" "RET")))
 
+(setq-default sp-escape-quotes-after-insert nil)
 
 (sp-local-pair 'js2-mode "/**" "*/" :post-handlers '(("| " "SPC")
                                                      ("* ||\n[i]" "RET")))
@@ -885,38 +885,38 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 (ivy-rich-mode 1)
 )
 #+END_SRC
-* eshell / aweshell
+* eshell
 #+BEGIN_SRC emacs-lisp
 
-  ;; (add-to-list 'load-path (expand-file-name "~/Sync/shared/aweshell"))
-  ;; (setq aweshell-use-exec-path-from-shell t)
-  ;; (setq epe-show-python-info nil)
-  ;; (require 'aweshell)
+    ;; (add-to-list 'load-path (expand-file-name "~/Sync/shared/aweshell"))
+    ;; (setq aweshell-use-exec-path-from-shell t)
+    ;; (setq epe-show-python-info nil)
+    ;; (require 'aweshell)
 
-(use-package exec-path-from-shell
-:ensure t
-:config
-(exec-path-from-shell-initialize))
-
-
-  (use-package fish-completion
+  (use-package exec-path-from-shell
   :ensure t
   :config
-  (global-fish-completion-mode))
-(use-package eshell-prompt-extras :tangle no
-:ensure t
-:config
-(setq epe-show-python-info nil)
-)
-
-(use-package eshell-git-prompt
-:ensure t
-:config
-(eshell-git-prompt-use-theme 'git-radar)
-)
+  (exec-path-from-shell-initialize))
 
 
-(setq scroll-step 1)
+    (use-package fish-completion
+    :ensure t
+    :config
+    (global-fish-completion-mode))
+  ;; (use-package eshell-prompt-extras 
+  ;; :ensure t
+  ;; :config
+  ;; (setq epe-show-python-info nil)
+  ;; )
+
+  (use-package eshell-git-prompt
+  :ensure t
+  :config
+  (eshell-git-prompt-use-theme 'git-radar)
+  )
+
+
+  (setq scroll-step 1)
 #+END_SRC
 * personal keymap
 #+BEGIN_SRC emacs-lisp
