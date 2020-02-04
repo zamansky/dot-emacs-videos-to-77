@@ -888,12 +888,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 * eshell
 #+BEGIN_SRC emacs-lisp
 
-    ;; (add-to-list 'load-path (expand-file-name "~/Sync/shared/aweshell"))
-    ;; (setq aweshell-use-exec-path-from-shell t)
-    ;; (setq epe-show-python-info nil)
-    ;; (require 'aweshell)
-
-  (use-package exec-path-from-shell
+(use-package exec-path-from-shell
   :ensure t
   :config
   (exec-path-from-shell-initialize))
