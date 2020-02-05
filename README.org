@@ -913,6 +913,29 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 
   (setq scroll-step 1)
 #+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (require 'cl-lib)
+  (defun select-or-create (arg)
+    "Commentary ARG."
+    (if (string= arg "New eshell")
+        (eshell t)
+      (switch-to-buffer arg)))
+  (defun eshell-switcher (&optional arg)
+    "Commentary ARG."
+    (interactive)
+    (let* (
+           (buffers (cl-remove-if-not (lambda (n) (eq (buffer-local-value 'major-mode n) 'eshell-mode)) (buffer-list)) )
+           (names (mapcar (lambda (n) (buffer-name n)) buffers))
+           (num-buffers (length buffers) )
+           (in-eshellp (eq major-mode 'eshell-mode)))
+      (cond ((eq num-buffers 0) (eshell (or arg t)))
+            ((not in-eshellp) (switch-to-buffer (car buffers)))
+            (t (select-or-create (completing-read "Select Shell:" (cons "New eshell" names)))))))
+
+
+
+#+END_SRC
 * personal keymap
 #+BEGIN_SRC emacs-lisp
 ;; unset C- and M- digit keys
