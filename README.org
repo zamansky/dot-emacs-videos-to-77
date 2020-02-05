@@ -690,8 +690,6 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 * Python
 
 #+BEGIN_SRC emacs-lisp
-
-
         (use-package virtualenvwrapper
           :ensure t
           :config
@@ -706,6 +704,12 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 :init
 (add-hook 'python-mode-hook 'jedi:setup)
 (add-hook 'python-mode-hook 'jedi:ac-setup))
+
+
+(setq python-shell-interpreter "python3"
+      python-shell-interpreter-args "-i")
+
+
 #+END_SRC
 * C++
 #+BEGIN_SRC emacs-lisp
