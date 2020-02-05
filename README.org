@@ -50,7 +50,7 @@
     (use-package faff-theme
       :ensure t
       )
-    (load-theme 'gruvbox-light-soft t)
+    (load-theme 'cloud t)
 
     (use-package doom-modeline
       :ensure t)
@@ -609,7 +609,8 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 #+END_SRC
 
 * LSP
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
+
 (use-package lsp-mode
   :ensure t
   :commands lsp
@@ -700,6 +701,11 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 (venv-workon "p3")
 (setq lsp-python-executable-cmd "python3")
 
+(use-package jedi
+:ensure t
+:init
+(add-hook 'python-mode-hook 'jedi:setup)
+(add-hook 'python-mode-hook 'jedi:ac-setup))
 #+END_SRC
 * C++
 #+BEGIN_SRC emacs-lisp

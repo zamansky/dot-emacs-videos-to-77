@@ -21,7 +21,7 @@
  '(ansi-color-names-vector
    ["#ebdbb2" "#cc241d" "#98971a" "#d79921" "#458588" "#b16286" "#689d6a" "#3c3836"])
  '(custom-safe-themes
-   '("9f19d17dadb19b6c79c26cd3459b22ecac847936ecac7ab29acdc9c9229fc097" "b583823b9ee1573074e7cbfd63623fe844030d911e9279a7c8a5d16de7df0ed0" "8e797edd9fa9afec181efbfeeebf96aeafbd11b69c4c85fa229bb5b9f7f7e66c" default))
+   '("bf798e9e8ff00d4bf2512597f36e5a135ce48e477ce88a0764cfb5d8104e8163" "9f19d17dadb19b6c79c26cd3459b22ecac847936ecac7ab29acdc9c9229fc097" "b583823b9ee1573074e7cbfd63623fe844030d911e9279a7c8a5d16de7df0ed0" "8e797edd9fa9afec181efbfeeebf96aeafbd11b69c4c85fa229bb5b9f7f7e66c" default))
  '(lsp-auto-guess-root nil)
  '(lsp-prefer-flymake nil)
  '(lsp-ui-doc-border "unspecified-fg" t)
