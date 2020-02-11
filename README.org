@@ -1132,4 +1132,13 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
       (mz/hydra-elfeed/body))
 
 
+(defun my-elfeed-tag-sort (a b)
+  (let* ((a-tags (format "%s" (elfeed-entry-tags a)))
+         (b-tags (format "%s" (elfeed-entry-tags b))))
+    (if (string= a-tags b-tags)
+        (< (elfeed-entry-date b) (elfeed-entry-date a)))
+    (string< a-tags b-tags)))
+
+
+(setf elfeed-search-sort-function #'my-elfeed-tag-sort)
 #+END_SRC
