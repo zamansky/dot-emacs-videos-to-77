@@ -52,7 +52,9 @@
     (use-package faff-theme
       :ensure t
       )
-    (load-theme 'cloud t)
+(use-pacakge replace-colorthemes :ensure t)
+
+    (load-theme 'wheat t)
 
     (use-package doom-modeline
       :ensure t)
