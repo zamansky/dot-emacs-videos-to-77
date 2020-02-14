@@ -52,6 +52,7 @@
     (use-package faff-theme
       :ensure t
       )
+
 (use-pacakge replace-colorthemes :ensure t)
 
     (load-theme 'wheat t)
@@ -90,7 +91,7 @@
     (use-package ace-window
       :ensure t
       :config
-      (setq aw-scope 'frame) ;; was window
+      (setq aw-scope 'global) ;; was frame
       (global-set-key (kbd "C-x O") 'other-frame)
       (global-set-key [remap other-window] 'ace-window))
   #+END_SRC
@@ -765,7 +766,6 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 
 #+END_SRC
 
-
 * Dumb jump
 #+BEGIN_SRC emacs-lisp
 
@@ -1143,4 +1143,18 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 
 
 (setf elfeed-search-sort-function #'my-elfeed-tag-sort)
+#+END_SRC
+* Name frame
+#+BEGIN_SRC emacs-lisp
+(use-package nameframe
+  :ensure t)
+
+(use-package nameframe-projectile
+  :ensure t
+  :config
+  (nameframe-projectile-mode t)
+
+  )
+
+
 #+END_SRC
