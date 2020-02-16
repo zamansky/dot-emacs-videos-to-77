@@ -53,7 +53,7 @@
       :ensure t
       )
 
-(use-pacakge replace-colorthemes :ensure t)
+(use-package color-theme-modern :ensure t)
 
     (load-theme 'wheat t)
 
