@@ -1158,3 +1158,15 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 
 
 #+END_SRC
+* dired stuff
+#+BEGIN_SRC emacs-lisp
+(use-package diredfl
+:ensure t
+:config 
+(diredfl-global-mode 1))
+
+(setq 
+dired-listing-switches "-lXGh --group-directories-first"
+dired-dwim-target t)
+(add-hook 'dired-mode-hook 'dired-hide-details-mode)
+#+END_SRC
