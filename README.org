@@ -421,6 +421,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   ;;(org-msg-mode)
   )
 
+(require 'ox-reveal)
 
 
   #+END_SRC
