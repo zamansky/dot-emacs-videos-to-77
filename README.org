@@ -339,6 +339,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
          '(org-startup-indented t)
          '(org-confirm-babel-evaluate nil)
          '(org-src-fontify-natively t)
+         '(org-export-with-toc nil)
          )
 
 
