@@ -39,6 +39,7 @@
 
     (setenv "BROWSER" "firefox")t
 
+    (use-package parchment-theme :ensure t)
     (use-package cloud-theme :ensure t)
     (use-package moe-theme :ensure t)
     (use-package zenburn-theme :ensure t)
@@ -55,7 +56,7 @@
 
 (use-package color-theme-modern :ensure t)
 
-    (load-theme 'wheat t)
+    (load-theme 'parchment t)
 
     (use-package doom-modeline
       :ensure t)
@@ -374,7 +375,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
                  "* TODO %a\n %?" :prepend t)
                 ("g" "GMail To Do" entry (file+headline "~/Sync/orgfiles/i.org" "To Do and Notes")
                  "* TODO %^L\n %?" :prepend t)
-                ("n" "Note" entry (file+headline "~/Sync/orgfiles/i.org" "Notes")
+                ("n" "Note" entry (file+olp "~/Sync/orgfiles/i.org" "Notes")
                  "* %u %? " :prepend t)
                 ))
   
