@@ -424,6 +424,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 
 (require 'ox-reveal)
 
+(require 'org-tempo)  ;; to bring back easy templates using <s or <n
 
   #+END_SRC
 * Parens
