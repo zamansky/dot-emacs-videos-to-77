@@ -426,6 +426,28 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 
 (require 'org-tempo)  ;; to bring back easy templates using <s or <n
 
+
+
+(require 'ox-publish)
+(setq org-publish-project-alist
+      '(
+
+
+
+	("teacher_ed"
+	 :base-directory "~/Sync/hunter/sites/teacher_ed/"
+	 :base-extension "org"
+	 :publishing-directory "/ssh:zamansky@info.huntercs.org:/var/www/html/teacher_ed/"
+	 :recursive t
+	 :publishing-function org-html-publish-to-html
+	 :headline-levels 4             ; Just the default for this project.
+	 :auto-preamble t
+	 )
+	))
+
+
+
+
   #+END_SRC
 * Parens
 #+BEGIN_SRC emacs-lisp
