@@ -60,7 +60,7 @@
 
 (use-package color-theme-modern :ensure t)
 
-    (load-theme 'modus-operandi t)
+    (load-theme 'modus-vivendi t)
 
     (use-package doom-modeline
       :ensure t)
@@ -1204,4 +1204,12 @@ dired-dwim-target t)
 ** floobits
 #+begin_src emacs-lisp
 (use-package floobits :ensure t)
+#+end_src
+* RG - ripgrep
+#+begin_src emacs-lisp
+(use-package rg
+:ensure t
+:config
+(rg-enable-default-bindings))
+;;(rg-enable-menu))
 #+end_src
