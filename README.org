@@ -369,8 +369,11 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
         (setq org-capture-templates
               '(("a" "Appointment" entry (file  "~/Sync/orgfiles/gcal.org" )
                  "* %?\n\n%^T\n\n:PROPERTIES:\n\n:END:\n\n")
+               ;; ("l" "Link" entry (file+headline "~/Sync/orgfiles/links.org" "Links")
+               ;;"* %? %^L %^g \n%T" :prepend t)
                 ("l" "Link" entry (file+headline "~/Sync/orgfiles/links.org" "Links")
-                 "* %? %^L %^g \n%T" :prepend t)
+               
+               "* %a\n %?\n %i")
                 ("b" "Blog idea" entry (file+headline "~/Sync/orgfiles/i.org" "Blog Topics:")
                  "* %?\n%T" :prepend t)
                 ("t" "To Do Item" entry (file+headline "~/Sync/orgfiles/i.org" "To Do and Notes")
