@@ -335,116 +335,116 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 
 * ORG-mode stuff
   #+BEGIN_SRC emacs-lisp
-        (custom-set-variables
-         '(org-directory "~/Sync/orgfiles")
-         '(org-default-notes-file (concat org-directory "/notes.org"))
-         '(org-export-html-postamble nil)
-         '(org-hide-leading-stars t)
-         '(org-startup-folded (quote overview))
-         '(org-startup-indented t)
-         '(org-confirm-babel-evaluate nil)
-         '(org-src-fontify-natively t)
-         '(org-export-with-toc nil)
-         )
+            (custom-set-variables
+             '(org-directory "~/Sync/orgfiles")
+             '(org-default-notes-file (concat org-directory "/notes.org"))
+             '(org-export-html-postamble nil)
+             '(org-hide-leading-stars t)
+             '(org-startup-folded (quote overview))
+             '(org-startup-indented t)
+             '(org-confirm-babel-evaluate nil)
+             '(org-src-fontify-natively t)
+             '(org-export-with-toc nil)
+             )
 
 
-        (use-package org-bullets
-          :ensure t
-          :config
-          (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+            (use-package org-bullets
+              :ensure t
+              :config
+              (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
       
 
-        (global-set-key "\C-ca" 'org-agenda)
-        (setq org-agenda-start-on-weekday nil)
-        (setq org-agenda-custom-commands
-              '(("c" "Simple agenda view"
-                 ((agenda "")
-                  (alltodo "")))))
+            (global-set-key "\C-ca" 'org-agenda)
+            (setq org-agenda-start-on-weekday nil)
+            (setq org-agenda-custom-commands
+                  '(("c" "Simple agenda view"
+                     ((agenda "")
+                      (alltodo "")))))
 
-        (global-set-key (kbd "C-c c") 'org-capture)
+            (global-set-key (kbd "C-c c") 'org-capture)
 
-        (setq org-agenda-files (list "~/Sync/orgfiles/gcal.org"
-                                     "~/Sync/orgfiles/soe-cal.org"
-                                     "~/Sync/orgfiles/i.org"))
-        (setq org-capture-templates
-                ("l" "Link" entry (file+headline "~/Sync/orgfiles/links.org" "Links")
-                "* %a %^g\n %?\n %T\n %i")
-                ("b" "Blog idea" entry (file+headline "~/Sync/orgfiles/i.org" "POSTS:")
-                 "* %?\n%T" :prepend t)
-                ("t" "To Do Item" entry (file+headline "~/Sync/orgfiles/i.org" "To Do and Notes")
-                 "* TODO %?\n%u" :prepend t)
-                ("m" "Mail To Do" entry (file+headline "~/Sync/orgfiles/i.org" "To Do and Notes")
-                 "* TODO %a\n %?" :prepend t)
-                ("g" "GMail To Do" entry (file+headline "~/Sync/orgfiles/i.org" "To Do and Notes")
-                 "* TODO %^L\n %?" :prepend t)
-                ("n" "Note" entry (file+olp "~/Sync/orgfiles/i.org" "Notes")
-                 "* %u %? " :prepend t)
-                ))
+            (setq org-agenda-files (list "~/Sync/orgfiles/gcal.org"
+                                         "~/Sync/orgfiles/soe-cal.org"
+                                         "~/Sync/orgfiles/i.org"))
+            (setq org-capture-templates
+                   '(("l" "Link" entry (file+headline "~/Sync/orgfiles/links.org" "Links")
+                    "* %a %^g\n %?\n %T\n %i")
+                    ("b" "Blog idea" entry (file+headline "~/Sync/orgfiles/i.org" "POSTS:")
+                     "* %?\n%T" :prepend t)
+                    ("t" "To Do Item" entry (file+headline "~/Sync/orgfiles/i.org" "To Do and Notes")
+                     "* TODO %?\n%u" :prepend t)
+                    ("m" "Mail To Do" entry (file+headline "~/Sync/orgfiles/i.org" "To Do and Notes")
+                     "* TODO %a\n %?" :prepend t)
+                    ("g" "GMail To Do" entry (file+headline "~/Sync/orgfiles/i.org" "To Do and Notes")
+                     "* TODO %^L\n %?" :prepend t)
+                    ("n" "Note" entry (file+olp "~/Sync/orgfiles/i.org" "Notes")
+                     "* %u %? " :prepend t)
+                    ))
   
 
 
-        (use-package htmlize :ensure t)
+            (use-package htmlize :ensure t)
 
-        (setq org-ditaa-jar-path "/usr/share/ditaa/ditaa.jar")
-       (setq org-file-apps
-              (append '(
-                        ("\\.pdf\\'" . "evince %s")
-                        ("\\.x?html?\\'" . "/usr/bin/firefox %s")
-                        ) org-file-apps ))
-      ;; babel stuff
+            (setq org-ditaa-jar-path "/usr/share/ditaa/ditaa.jar")
+           (setq org-file-apps
+                  (append '(
+                            ("\\.pdf\\'" . "evince %s")
+                            ("\\.x?html?\\'" . "/usr/bin/firefox %s")
+                            ) org-file-apps ))
+          ;; babel stuff
 
-        (org-babel-do-load-languages
-         'org-babel-load-languages
-         '((python . t)
-           (emacs-lisp . t)
-    (shell . t)
-           (C . t)
-        (js . t)
-           (ditaa . t)
-           (dot . t)
-           (org . t)
-        (latex . t )
-           ))
-
-
-
-(setq mail-user-agent 'mu4e-user-agent)
-(use-package org-msg
-  :ensure t
-  :config
-  (setq org-msg-options "html-postamble:nil H:5 num:nil ^:{} toc:nil tex:dvipng")
-  (setq org-msg-startup "hidestars indent inlineimages")
-  (setq org-msg-greeting-fmt "\n%s,\n\n")
-  (setq org-msg-greeting-fmt-mailto t)
-  (setq org-msg-signature "
-    ,#+begin_signature
-    -- *Mike* \\\\
-    ,#+end_signature")
-  (org-msg-mode)
-  )
-
-(require 'ox-reveal)
-
-(require 'org-tempo)  ;; to bring back easy templates using <s or <n
+            (org-babel-do-load-languages
+             'org-babel-load-languages
+             '((python . t)
+               (emacs-lisp . t)
+        (shell . t)
+               (C . t)
+            (js . t)
+               (ditaa . t)
+               (dot . t)
+               (org . t)
+            (latex . t )
+               ))
 
 
 
-(require 'ox-publish)
-(setq org-publish-project-alist
-      '(
+    (setq mail-user-agent 'mu4e-user-agent)
+    (use-package org-msg
+      :ensure t
+      :config
+      (setq org-msg-options "html-postamble:nil H:5 num:nil ^:{} toc:nil tex:dvipng")
+      (setq org-msg-startup "hidestars indent inlineimages")
+      (setq org-msg-greeting-fmt "\n%s,\n\n")
+      (setq org-msg-greeting-fmt-mailto t)
+      (setq org-msg-signature "
+        ,#+begin_signature
+        -- *Mike* \\\\
+        ,#+end_signature")
+      (org-msg-mode)
+      )
+
+    (require 'ox-reveal)
+
+    (require 'org-tempo)  ;; to bring back easy templates using <s or <n
 
 
 
-	("teacher_ed"
-	 :base-directory "~/Sync/hunter/sites/teacher_ed/"
-	 :base-extension "org"
-	 :publishing-directory "/ssh:zamansky@info.huntercs.org:/var/www/html/teacher_ed/"
-	 :recursive t
-	 :publishing-function org-html-publish-to-html
-	 :headline-levels 4             ; Just the default for this project.
-	 :auto-preamble t
-	 )
-	))
+    (require 'ox-publish)
+    (setq org-publish-project-alist
+          '(
+
+
+
+            ("teacher_ed"
+             :base-directory "~/Sync/hunter/sites/teacher_ed/"
+             :base-extension "org"
+             :publishing-directory "/ssh:zamansky@info.huntercs.org:/var/www/html/teacher_ed/"
+             :recursive t
+             :publishing-function org-html-publish-to-html
+             :headline-levels 4             ; Just the default for this project.
+             :auto-preamble t
+             )
+            ))
 
 
 
