@@ -335,6 +335,8 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 
 * ORG-mode stuff
   #+BEGIN_SRC emacs-lisp
+
+(require 'org-protocol)
             (custom-set-variables
              '(org-directory "~/Sync/orgfiles")
              '(org-default-notes-file (concat org-directory "/notes.org"))
