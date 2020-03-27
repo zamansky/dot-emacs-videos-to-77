@@ -372,8 +372,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
                ;; ("l" "Link" entry (file+headline "~/Sync/orgfiles/links.org" "Links")
                ;;"* %? %^L %^g \n%T" :prepend t)
                 ("l" "Link" entry (file+headline "~/Sync/orgfiles/links.org" "Links")
-               
-               "* %a\n %?\n %i")
+                "* %a %^g\n %?\n %T\n %i")
                 ("b" "Blog idea" entry (file+headline "~/Sync/orgfiles/i.org" "Blog Topics:")
                  "* %?\n%T" :prepend t)
                 ("t" "To Do Item" entry (file+headline "~/Sync/orgfiles/i.org" "To Do and Notes")
