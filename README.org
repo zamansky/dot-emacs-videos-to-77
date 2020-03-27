@@ -377,8 +377,6 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
                      "* TODO %?\n%u" :prepend t)
                     ("m" "Mail To Do" entry (file+headline "~/Sync/orgfiles/i.org" "To Do and Notes")
                      "* TODO %a\n %?" :prepend t)
-                    ("g" "GMail To Do" entry (file+headline "~/Sync/orgfiles/i.org" "To Do and Notes")
-                     "* TODO %a\n %?" :prepend t)
                     ("n" "Note" entry (file+olp "~/Sync/orgfiles/i.org" "Notes")
                      "* %u %? " :prepend t)
                     ))
