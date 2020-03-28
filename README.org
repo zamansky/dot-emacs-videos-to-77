@@ -96,7 +96,7 @@
     (use-package ace-window
       :ensure t
       :config
-      (setq aw-scope 'global) ;; was frame
+      (setq aw-scope 'frame) ;; was global
       (global-set-key (kbd "C-x O") 'other-frame)
       (global-set-key [remap other-window] 'ace-window))
   #+END_SRC
