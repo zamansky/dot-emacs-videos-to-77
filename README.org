@@ -186,6 +186,7 @@
 
 * IBUFFER
 #+BEGIN_SRC emacs-lisp 
+
   (global-set-key (kbd "C-x C-b") 'ibuffer)
   (setq ibuffer-saved-filter-groups
         (quote (("default"
@@ -703,6 +704,15 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
     (projectile-mode +1))
 
 
+(use-package ibuffer-projectile
+:ensure t
+:config 
+(add-hook 'ibuffer-hook
+    (lambda ()
+      (ibuffer-projectile-set-filter-groups)
+      (unless (eq ibuffer-sorting-mode 'alphabetic)
+        (ibuffer-do-sort-by-alphabetic))))
+)
 #+END_SRC
 * Company
 #+BEGIN_SRC emacs-lisp
