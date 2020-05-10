@@ -436,6 +436,18 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
     (setq org-publish-project-alist
           '(
 
+            ("home_page"
+             :base-directory "~/Sync/hunter/sites/home_page/"
+             :base-extension "org"
+             :publishing-directory "/ssh:zamansky@info.huntercs.org:/var/www/html/home_page/"
+             :recursive t
+             :publishing-function org-html-publish-to-html
+             :headline-levels 4             ; Just the default for this project.
+             :auto-preamble t
+             )
+            
+
+
 
 
             ("teacher_ed"
