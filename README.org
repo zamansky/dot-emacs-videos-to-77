@@ -60,7 +60,7 @@
 
 (use-package color-theme-modern :ensure t)
 
-    (load-theme 'modus-vivendi t)
+    (load-theme 'modus-operandi t)
 
     (use-package doom-modeline
       :ensure t)
