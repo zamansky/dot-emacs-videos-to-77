@@ -1245,6 +1245,25 @@ dired-dwim-target t)
 
 
 
+(use-package dired-recent
+  :ensure t
+  :config
+  
+  (dired-recent-mode  1)
+  )
+
+
+(defun my-dired-recent-dirs ()
+  "Present a list of recently used directories and open the selected one in dired"
+  (interactive)
+  (let ((dir (ivy-read "Directory: "
+                       dired-recent-directories
+                       :re-builder #'ivy--regex
+                       :sort nil
+                       :initial-input nil)))
+    (dired dir)))
+
+
 #+END_SRC
 ** floobits
 #+begin_src emacs-lisp
