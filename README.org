@@ -445,12 +445,15 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
              :headline-levels 4             ; Just the default for this project.
              :auto-preamble t
              )
-            
+("home_static"
+ :base-directory "~/Sync/hunter/sites/home_page/"
+ :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
+              :publishing-directory "/ssh:zamansky@info.huntercs.org:/var/www/html/home_page/"
+ :recursive t
+ :publishing-function org-publish-attachment
+ )
 
-
-
-
-            ("teacher_ed"
+             ("teacher_ed"
              :base-directory "~/Sync/hunter/sites/teacher_ed/"
              :base-extension "org"
              :publishing-directory "/ssh:zamansky@info.huntercs.org:/var/www/html/teacher_ed/"
@@ -1125,6 +1128,8 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
                     ("M" . elfeed-toggle-star)
                     ("j" . mz/make-and-run-elfeed-hydra)
                     ("J" . mz/make-and-run-elfeed-hydra)
+                    ("b" . mz/elfeed-browse-url)
+                    ("B" . elfeed-search-browse-url)
                     )
   :config
       (defalias 'elfeed-toggle-star
@@ -1263,4 +1268,38 @@ dired-dwim-target t)
 * keypression
 #+begin_src emacs-lisp
 (use-package keypression :ensure t)
+#+end_src
+
+* openwith
+#+begin_src emacs-lisp
+
+  (use-package openwith
+    :ensure t
+    :config
+    (setq openwith-associations
+          (list
+           (list (openwith-make-extension-regexp
+                  '("mpg" "mpeg" "mp3" "mp4"
+                    "avi" "wmv" "wav" "mov" "flv"
+                    "ogm" "ogg" "mkv"))
+                 "vlc"
+                 '(file))
+           (list (openwith-make-extension-regexp
+                  '("xbm" "pbm" "pgm" "ppm" "pnm"
+                    "png" "gif" "bmp" "tif" "jpeg" "jpg"))
+                 "xviewer"
+                 '(file))
+           (list (openwith-make-extension-regexp
+                  '("pdf"))
+                  "evince"
+                 '(file))
+           (list (openwith-make-extension-regexp
+                  '("docx" "xlsx" "doc" "xls" "ppt" "odt" "ods" "odg" "odp"))
+                 "libreoffice"
+                 '(file))
+           ))
+   (openwith-mode 1)
+) 
+
+
 #+end_src
