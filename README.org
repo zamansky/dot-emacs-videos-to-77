@@ -85,10 +85,10 @@
     (setq auto-revert-verbose nil) ;; or this
     (global-set-key (kbd "<f5>") 'revert-buffer)
 
-    (use-package aggressive-indent
+    (use-package aggressive-indent 
       :ensure t
       :config
-      (global-aggressive-indent-mode 1)
+      ;; (global-aggressive-indent-mode 1)
       ;;(add-to-list 'aggressive-indent-excluded-modes 'html-mode)
       )
 
@@ -1289,41 +1289,8 @@ dired-dwim-target t)
 (use-package keypression :ensure t)
 #+end_src
 
-* openwith
-#+begin_src emacs-lisp :tangle no
-
-  (use-package openwith
-    :ensure t
-    :config
-    (setq openwith-associations
-          (list
-           (list (openwith-make-extension-regexp
-                  '("mpg" "mpeg" "mp3" "mp4"
-                    "avi" "wmv" "wav" "mov" "flv"
-                    "ogm" "ogg" "mkv"))
-                 "vlc"
-                 '(file))
-           (list (openwith-make-extension-regexp
-                  '("xbm" "pbm" "pgm" "ppm" "pnm"
-                    "png" "gif" "bmp" "tif" "jpeg" "jpg"))
-                 "xviewer"
-                 '(file))
-           (list (openwith-make-extension-regexp
-                  '("pdf"))
-                  "evince"
-                 '(file))
-           (list (openwith-make-extension-regexp
-                  '("docx" "xlsx" "doc" "xls" "ppt" "odt" "ods" "odg" "odp"))
-                 "libreoffice"
-                 '(file))
-           ))
-   (openwith-mode 1)
-) 
-
-
-#+end_src
 * open alternative from Xah Lee
-#+begin_src 
+#+begin_src emacs-lisp
 (defun xah-open-in-external-app (&optional @fname)
   "Open the current file or dired marked files in external app.
 The app is chosen from your OS's preference.
