@@ -269,6 +269,10 @@
     :ensure t
     :init
     (progn
+(setq magit-section-initial-visibility-alist
+      '((stashes . hide) (untracked . hide) (unpushed . hide)))
+
+
     (bind-key "C-x g" 'magit-status)
     ))
 
@@ -1090,7 +1094,8 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
                     (browse-url (elfeed-entry-link entry))))
       (mapc #'elfeed-search-update-entry entries)
       (unless (or elfeed-search-remain-on-entry (use-region-p))
-        (forward-line))))
+      ;;(forward-line)
+)))
 
 
 
