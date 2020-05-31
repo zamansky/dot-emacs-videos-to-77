@@ -29,6 +29,7 @@
 * repos
 #+BEGIN_SRC emacs-lisp
 (add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
+
 #+END_SRC
 
 
@@ -365,8 +366,8 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 
     (global-set-key (kbd "C-c c") 'org-capture)
 
-    (setq org-agenda-files (list "~/Sync/orgfiles/gcal.org"
-                                 "~/Sync/orgfiles/soe-cal.org"
+    (setq org-agenda-files (list "~/opt/gcal.org"
+                                 "~/opt/soe-cal.org"
                                  "~/Sync/orgfiles/i.org"))
     (setq org-capture-templates
           '(("l" "Link" entry (file+headline "~/Sync/orgfiles/links.org" "Links")
@@ -400,6 +401,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
      '((python . t)
        (emacs-lisp . t)
        (shell . t)
+       (java . t)
        (C . t)
        (js . t)
        (ditaa . t)
