@@ -127,13 +127,13 @@
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp 
-(use-package hlinum
-:ensure t
-:config
-(hlinum-activate)
-(global-linum-mode)
+  ;; (use-package hlinum
+  ;; :ensure t
+  ;; :config
+  ;; (hlinum-activate)
+  ;; (global-linum-mode)
 
-)
+  ;; )
 #+END_SRC
 * Swiper / Ivy / Counsel
   Swiper gives us a really efficient incremental search with regular expressions
