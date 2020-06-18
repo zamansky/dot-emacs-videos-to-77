@@ -50,6 +50,9 @@
  '(ibuffer-filter-group-name-face 'dired-mark)
  '(ibuffer-marked-face 'dired-marked)
  '(ibuffer-title-face 'dired-header)
+ '(jdee-jdk-registry
+   '(("10.0" . "/usr/lib/jvm/java-11-openjdk-amd64")))
+ '(jdee-server-dir "/home/zamansky/.emacs.d/jdee-server")
  '(line-spacing 0.2)
  '(org-confirm-babel-evaluate nil)
  '(org-default-notes-file (concat org-directory "/notes.org"))
@@ -93,4 +96,5 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(lsp-ui-doc-background ((t (:background nil))))
+ '(lsp-ui-doc-header ((t (:inherit (font-lock-string-face italic))))))
