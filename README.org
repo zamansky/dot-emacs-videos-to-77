@@ -1291,5 +1291,10 @@ Version 2019-11-04"
 :ensure t
 :config 
 (custom-set-variables
- '(jdee-server-dir "/home/zamansky/.emacs.d/jdee-server")))
+ '(jdee-jdk-registry'(("10.0" . "/usr/lib/jvm/java-11-openjdk-amd64")))
+
+'(jdee-server-dir "/home/zamansky/.emacs.d/jdee-server"))
+ 
+
+)
 #+end_src

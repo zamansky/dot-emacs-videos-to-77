@@ -50,9 +50,6 @@
  '(ibuffer-filter-group-name-face 'dired-mark)
  '(ibuffer-marked-face 'dired-marked)
  '(ibuffer-title-face 'dired-header)
- '(jdee-jdk-registry
-   '(("10.0" . "/usr/lib/jvm/java-11-openjdk-amd64")))
- '(jdee-server-dir "/home/zamansky/.emacs.d/jdee-server")
  '(line-spacing 0.2)
  '(org-confirm-babel-evaluate nil)
  '(org-default-notes-file (concat org-directory "/notes.org"))
