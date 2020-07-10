@@ -1286,7 +1286,7 @@ Version 2019-11-04"
 (define-key dired-mode-map (kbd "C-<return>") 'xah-open-in-external-app)
 #+end_src
 * Java
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
 (use-package jdee
 :ensure t
 :config 
@@ -1297,4 +1297,15 @@ Version 2019-11-04"
  
 
 )
+#+end_src
+
+#+begin_src emacs-lisp
+
+(use-package lsp-mode :ensure t :hook ((lsp-mode . lsp-enable-which-key-integration))
+  :config (setq lsp-completion-enable-additional-text-edit nil))
+(use-package lsp-ui :ensure t)
+(use-package lsp-java :ensure t :config (add-hook 'java-mode-hook 'lsp))
+(use-package dap-mode :ensure t :after lsp-mode :config (dap-auto-configure-mode))
+(use-package dap-java :ensure nil)
+(push 'company-lsp company-backends)
 #+end_src
