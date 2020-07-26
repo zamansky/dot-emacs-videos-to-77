@@ -1287,16 +1287,16 @@ Version 2019-11-04"
 #+end_src
 * Java
 #+begin_src emacs-lisp :tangle no
-(use-package jdee
-:ensure t
-:config 
-(custom-set-variables
- '(jdee-jdk-registry'(("10.0" . "/usr/lib/jvm/java-11-openjdk-amd64")))
+  ;; (use-package jdee
+  ;; :ensure t
+  ;; :config 
+  ;; (custom-set-variables
+  ;;  '(jdee-jdk-registry'(("10.0" . "/usr/lib/jvm/java-11-openjdk-amd64")))
 
-'(jdee-server-dir "/home/zamansky/.emacs.d/jdee-server"))
+  ;; '(jdee-server-dir "/home/zamansky/.emacs.d/jdee-server"))
  
 
-)
+  ;; )
 #+end_src
 
 #+begin_src emacs-lisp
@@ -1308,4 +1308,10 @@ Version 2019-11-04"
 (use-package dap-mode :ensure t :after lsp-mode :config (dap-auto-configure-mode))
 (use-package dap-java :ensure nil)
 (push 'company-lsp company-backends)
+#+end_src
+* misc
+#+begin_src emacs-lisp
+(setq confirm-kill-processes nil)
+
+
 #+end_src
