@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: img
+# key: img
+# expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region 'nil))
+# --
+#+begin_export html
+<img width="$1%" src="$0">
+#+end_export

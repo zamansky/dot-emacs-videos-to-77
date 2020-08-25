@@ -95,3 +95,4 @@
  ;; If there is more than one, they won't work right.
  '(lsp-ui-doc-background ((t (:background nil))))
  '(lsp-ui-doc-header ((t (:inherit (font-lock-string-face italic))))))
+(put 'dired-find-alternate-file 'disabled nil)
