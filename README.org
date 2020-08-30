@@ -336,7 +336,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 
 * ORG-mode stuff
   #+BEGIN_SRC emacs-lisp
-
+  (use-package ox-reveal :ensure t)
     (require 'org-protocol)
     (custom-set-variables
      '(org-directory "~/Sync/orgfiles")
@@ -644,7 +644,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 
    #+END_SRC
 
-
+   
 * Snippets
 #+BEGIN_SRC emacs-lisp
     (use-package yasnippet
@@ -696,66 +696,6 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 (global-company-mode t)
 )
 
-(use-package company-lsp
-  :ensure t
-  :config
-(setq compnay-lsp-enable-snippet t)
- (push 'company-lsp company-backends)
-)
-#+END_SRC
-
-* Python
-
-#+BEGIN_SRC emacs-lisp
-        (use-package virtualenvwrapper
-          :ensure t
-          :config
-          (venv-initialize-interactive-shells)
-          (venv-initialize-eshell))
- 
-(venv-workon "p3")
-(setq lsp-python-executable-cmd "python3")
-
-(use-package jedi
-:ensure t
-:init
-(add-hook 'python-mode-hook 'jedi:setup)
-(add-hook 'python-mode-hook 'jedi:ac-setup))
-
-
-(setq python-shell-interpreter "python3"
-      python-shell-interpreter-args "-i")
-
-
-#+END_SRC
-* C++
-#+BEGIN_SRC emacs-lisp
-
-(use-package company-irony
-:ensure t
-:config 
-(add-to-list 'company-backends 'company-irony)
-
-)
-
-(use-package irony
-:ensure t
-:config
-(add-hook 'c++-mode-hook 'irony-mode)
-(add-hook 'c-mode-hook 'irony-mode)
-(add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
-)
-
-(use-package irony-eldoc
-:ensure t
-:config
-(add-hook 'irony-mode-hook #'irony-eldoc))
-
-
-
-;;(setq lsp-clangd-executable "clangd-6.0")
-;;(setq lsp-clients-clangd-executable "clangd-6.0")
-
 #+END_SRC
 
 * Clojure
@@ -804,12 +744,6 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 
 #+RESULTS:
 
-* Markdown
-#+BEGIN_SRC emacs-lisp
-(use-package grip-mode 
-:ensure t)
-
-#+END_SRC
 * Functions
 #+BEGIN_SRC emacs-lisp
 
@@ -1285,33 +1219,32 @@ Version 2019-11-04"
 
 (define-key dired-mode-map (kbd "C-<return>") 'xah-open-in-external-app)
 #+end_src
-* Java
-#+begin_src emacs-lisp :tangle no
-  ;; (use-package jdee
-  ;; :ensure t
-  ;; :config 
-  ;; (custom-set-variables
-  ;;  '(jdee-jdk-registry'(("10.0" . "/usr/lib/jvm/java-11-openjdk-amd64")))
-
-  ;; '(jdee-server-dir "/home/zamansky/.emacs.d/jdee-server"))
- 
-
-  ;; )
-#+end_src
-
-#+begin_src emacs-lisp
-
-(use-package lsp-mode :ensure t :hook ((lsp-mode . lsp-enable-which-key-integration))
-  :config (setq lsp-completion-enable-additional-text-edit nil))
-(use-package lsp-ui :ensure t)
-(use-package lsp-java :ensure t :config (add-hook 'java-mode-hook 'lsp))
-(use-package dap-mode :ensure t :after lsp-mode :config (dap-auto-configure-mode))
-(use-package dap-java :ensure nil)
-(push 'company-lsp company-backends)
-#+end_src
 * misc
 #+begin_src emacs-lisp
 (setq confirm-kill-processes nil)
 
+
+#+end_src
+* eglot - C++, Python, Java
+#+begin_src emacs-lisp
+(use-package eglot :ensure t)
+(add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd-10"))
+(add-hook 'c-mode-hook 'eglot-ensure)
+(add-hook 'c++-mode-hook 'eglot-ensure)
+
+(add-hook 'python-mode-hook 'eglot-ensure)
+
+
+(defconst my-eclipse-jdt-home "/home/zamansky/.emacs.d/.cache/lsp/eclipse.jdt.ls/plugins/org.eclipse.equinox.launcher_1.5.800.v20200727-1323.jar")
+(defun my-eglot-eclipse-jdt-contact (interactive)
+  "Contact with the jdt server input INTERACTIVE."
+  (let ((cp (getenv "CLASSPATH")))
+    (setenv "CLASSPATH" (concat cp ":" my-eclipse-jdt-home))
+    (unwind-protect (eglot--eclipse-jdt-contact nil)
+      (setenv "CLASSPATH" cp))))
+(setcdr (assq 'java-mode eglot-server-programs) #'my-eglot-eclipse-jdt-contact)
+
+
+(add-hook 'java-mode-hook 'eglot-ensure)
 
 #+end_src
