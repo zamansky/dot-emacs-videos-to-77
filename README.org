@@ -180,8 +180,15 @@
     ))
   #+END_SRC
 
-* IBUFFER
-#+BEGIN_SRC emacs-lisp 
+* buffer stuff
+
+#+begin_src emacs-lisp
+(use-package bufler :ensure t)
+(global-set-key (kbd "C-x C-b") 'bufler)
+
+#+end_src
+
+#+BEGIN_SRC emacs-lisp  :tangle no
 
   (global-set-key (kbd "C-x C-b") 'ibuffer)
   (setq ibuffer-saved-filter-groups
@@ -662,28 +669,28 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 * Projectile
 #+BEGIN_SRC emacs-lisp
 
-  (use-package projectile
-    :ensure t
-    :bind (:map projectile-mode-map
-                  ("s-p" . 'projectile-command-map)
-                  ("C-c p" . 'projectile-command-map)
-                )
+    (use-package projectile
+      :ensure t
+      :bind (:map projectile-mode-map
+                    ("s-p" . 'projectile-command-map)
+                    ("C-c p" . 'projectile-command-map)
+                  )
   
-    :config 
-    (setq projectile-completion-system 'ivy)
+      :config 
+      (setq projectile-completion-system 'ivy)
 
-    (projectile-mode +1))
+      (projectile-mode +1))
 
 
-(use-package ibuffer-projectile
-:ensure t
-:config 
-(add-hook 'ibuffer-hook
-    (lambda ()
-      (ibuffer-projectile-set-filter-groups)
-      (unless (eq ibuffer-sorting-mode 'alphabetic)
-        (ibuffer-do-sort-by-alphabetic))))
-)
+  ;; (use-package ibuffer-projectile
+  ;; :ensure t
+  ;; :config 
+  ;; (add-hook 'ibuffer-hook
+  ;;     (lambda ()
+  ;;       (ibuffer-projectile-set-filter-groups)
+  ;;       (unless (eq ibuffer-sorting-mode 'alphabetic)
+  ;;         (ibuffer-do-sort-by-alphabetic))))
+  ;;)
 #+END_SRC
 * Company
 #+BEGIN_SRC emacs-lisp
@@ -1233,7 +1240,7 @@ Version 2019-11-04"
 (add-hook 'c++-mode-hook 'eglot-ensure)
 
 ;; set the python interpeter
-(setq python-shell-interpreter "python3")
+;;(setq python-shell-interpreter "python3")
 (add-hook 'python-mode-hook 'eglot-ensure)
 
 
