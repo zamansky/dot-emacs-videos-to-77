@@ -696,3 +696,8 @@ Version 2019-11-04"
 (add-hook 'java-mode-hook 'eglot-ensure)
 
 #+end_src
+* Load extra files
+#+BEGIN_SRC emacs-lisp
+(load-file "~/Sync/shared/not-for-github.el")
+(load-file "~/Sync/shared/mu4econfig.el")
+#+END_SRC
