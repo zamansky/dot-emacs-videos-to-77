@@ -33,6 +33,7 @@
 #+END_SRC
 
 
+
 * interface tweaks
   #+BEGIN_SRC emacs-lisp
     (setq inhibit-startup-message t)
@@ -243,6 +244,573 @@
 
   #+END_SRC
 
+* Hydra
+#+BEGIN_SRC emacs-lisp
+(use-package hydra
+:ensure t)
+
+#+END_SRC
+* Folding - Origami
+#+BEGIN_SRC emacs-lisp
+(use-package origami
+:ensure t)
+
+(defhydra hydra-origami (:color red)
+  "
+  _o_pen node    _n_ext fold       toggle _f_orward
+  _c_lose node   _p_revious fold   toggle _a_ll
+  "
+  ("o" origami-open-node)
+  ("c" origami-close-node)
+  ("n" origami-next-fold)
+  ("p" origami-previous-fold)
+  ("f" origami-forward-toggle-node)
+  ("a" origami-toggle-all-nodes))
+
+
+
+
+#+END_SRC
+* Magit and git stuff
+#+BEGIN_SRC emacs-lisp
+
+(use-package magit
+    :ensure t
+    :init
+    (progn
+(setq magit-section-initial-visibility-alist
+      '((stashes . hide) (untracked . hide) (unpushed . hide)))
+
+
+    (bind-key "C-x g" 'magit-status)
+    ))
+
+(setq magit-status-margin
+  '(t "%Y-%m-%d %H:%M " magit-log-margin-width t 18))
+
+    (use-package git-timemachine
+    :ensure t
+    )
+
+(use-package git-gutter-fringe
+:ensure t
+:config
+(global-git-gutter-mode))
+
+
+
+
+(use-package smerge-mode
+  :after hydra
+  :config
+  (defhydra unpackaged/smerge-hydra
+    (:color pink :hint nil :post (smerge-auto-leave))
+    "
+^Move^       ^Keep^               ^Diff^                 ^Other^
+^^-----------^^-------------------^^---------------------^^-------
+_n_ext       _b_ase               _<_: upper/base        _C_ombine
+_p_rev       _u_pper              _=_: upper/lower       _r_esolve
+^^           _l_ower              _>_: base/lower        _k_ill current
+^^           _a_ll                _R_efine
+^^           _RET_: current       _E_diff
+"
+    ("n" smerge-next)
+    ("p" smerge-prev)
+    ("b" smerge-keep-base)
+    ("u" smerge-keep-upper)
+    ("l" smerge-keep-lower)
+    ("a" smerge-keep-all)
+    ("RET" smerge-keep-current)
+    ("\C-m" smerge-keep-current)
+    ("<" smerge-diff-base-upper)
+    ("=" smerge-diff-upper-lower)
+    (">" smerge-diff-base-lower)
+    ("R" smerge-refine)
+    ("E" smerge-ediff)
+    ("C" smerge-combine-with-next)
+    ("r" smerge-resolve)
+    ("k" smerge-kill-current)
+    ("ZZ" (lambda ()
+            (interactive)
+            (save-buffer)
+            (bury-buffer))
+     "Save and bury buffer" :color blue)
+    ("q" nil "cancel" :color blue))
+  :hook (magit-diff-visit-file . (lambda ()
+                                   (when smerge-mode
+                                     (unpackaged/smerge-hydra/body)))))
+
+
+
+(use-package forge
+:ensure t)
+
+#+END_SRC
+
+* ORG-mode stuff
+  #+BEGIN_SRC emacs-lisp
+  (use-package ox-reveal :ensure t)
+    (require 'org-protocol)
+    (custom-set-variables
+     '(org-directory "~/Sync/orgfiles")
+     '(org-default-notes-file (concat org-directory "/notes.org"))
+     '(org-export-html-postamble nil)
+     '(org-hide-leading-stars t)
+     '(org-startup-folded (quote overview))
+     '(org-startup-indented t)
+     '(org-confirm-babel-evaluate nil)
+     '(org-src-fontify-natively t)
+     '(org-export-with-toc nil)
+     )
+
+
+    (use-package org-bullets
+      :ensure t
+      :config
+      (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+
+
+    (global-set-key "\C-ca" 'org-agenda)
+    (setq org-agenda-start-on-weekday nil)
+    (setq org-agenda-custom-commands
+          '(("c" "Simple agenda view"
+             ((agenda "")
+              (alltodo "")))))
+
+    (global-set-key (kbd "C-c c") 'org-capture)
+
+    (setq org-agenda-files (list "~/opt/gcal.org"
+                                 "~/opt/soe-cal.org"
+                                 "~/Sync/orgfiles/i.org"))
+    (setq org-capture-templates
+          '(("l" "Link" entry (file+headline "~/Sync/orgfiles/links.org" "Links")
+             "* %a %^g\n %?\n %T\n %i")
+            ("b" "Blog idea" entry (file+headline "~/Sync/orgfiles/i.org" "POSTS:")
+             "* %?\n%T" :prepend t)
+            ("t" "To Do Item" entry (file+headline "~/Sync/orgfiles/i.org" "To Do and Notes")
+             "* TODO %?\n%u" :prepend t)
+            ("m" "Mail To Do" entry (file+headline "~/Sync/orgfiles/i.org" "To Do and Notes")
+             "* TODO %a\n %?" :prepend t)
+            ("n" "Note" entry (file+olp "~/Sync/orgfiles/i.org" "Notes")
+             "* %u %? " :prepend t)
+            ("r" "RSS" entry (file+headline "~/Sync/shared/elfeed.org" "Feeds misc")
+             "** %A %^g\n")
+            ))
+
+
+
+    (use-package htmlize :ensure t)
+
+    (setq org-ditaa-jar-path "/usr/share/ditaa/ditaa.jar")
+    (setq org-file-apps
+          (append '(
+                    ("\\.pdf\\'" . "evince %s")
+                    ("\\.x?html?\\'" . "/usr/bin/firefox %s")
+                    ) org-file-apps ))
+    ;; babel stuff
+
+    (org-babel-do-load-languages
+     'org-babel-load-languages
+     '((python . t)
+       (emacs-lisp . t)
+       (shell . t)
+       (java . t)
+       (C . t)
+       (js . t)
+       (ditaa . t)
+       (dot . t)
+       (org . t)
+       (latex . t )
+       ))
+
+
+
+    (setq mail-user-agent 'mu4e-user-agent)
+    (use-package org-msg
+      :ensure t
+      :config
+      (setq org-msg-options "html-postamble:nil H:5 num:nil ^:{} toc:nil tex:dvipng")
+      (setq org-msg-startup "hidestars indent inlineimages")
+      (setq org-msg-greeting-fmt "\n%s,\n\n")
+      (setq org-msg-greeting-fmt-mailto t)
+      (setq org-msg-signature "
+            ,#+begin_signature
+            -- *Mike* \\\\
+            ,#+end_signature")
+      (org-msg-mode)
+      )
+
+    (require 'ox-reveal)
+
+    (require 'org-tempo)  ;; to bring back easy templates using <s or <n
+
+
+
+    (require 'ox-publish)
+    (setq org-publish-project-alist
+          '(
+
+            ("home_page"
+             :base-directory "~/Sync/hunter/sites/home_page/"
+             :base-extension "org"
+             :publishing-directory "/ssh:zamansky@info.huntercs.org:/var/www/html/home_page/"
+             :recursive t
+             :publishing-function org-html-publish-to-html
+             :headline-levels 4             ; Just the default for this project.
+             :auto-preamble t
+             )
+("home_static"
+ :base-directory "~/Sync/hunter/sites/home_page/"
+ :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
+              :publishing-directory "/ssh:zamansky@info.huntercs.org:/var/www/html/home_page/"
+ :recursive t
+ :publishing-function org-publish-attachment
+ )
+
+             ("teacher_ed"
+             :base-directory "~/Sync/hunter/sites/teacher_ed/"
+             :base-extension "org"
+             :publishing-directory "/ssh:zamansky@info.huntercs.org:/var/www/html/teacher_ed/"
+             :recursive t
+             :publishing-function org-html-publish-to-html
+             :headline-levels 4             ; Just the default for this project.
+             :auto-preamble t
+             )
+            ))
+
+
+	(setq org-refile-targets '((nil :maxlevel . 2)))
+
+  #+END_SRC
+* Parens
+#+BEGIN_SRC emacs-lisp
+(use-package smartparens
+:ensure t
+:config
+(require 'smartparens-config)
+
+
+(add-hook 'minibuffer-setup-hook 'turn-on-smartparens-strict-mode)
+
+;;;;;;;;;;;;;;;;;;;;;;;;
+;; keybinding management
+(define-key smartparens-mode-map (kbd "C-M-f") 'sp-forward-sexp)
+(define-key smartparens-mode-map (kbd "C-M-b") 'sp-backward-sexp)
+
+(define-key smartparens-mode-map (kbd "C-M-d") 'sp-down-sexp)
+(define-key smartparens-mode-map (kbd "C-M-a") 'sp-backward-down-sexp)
+(define-key smartparens-mode-map (kbd "C-S-d") 'sp-beginning-of-sexp)
+(define-key smartparens-mode-map (kbd "C-S-a") 'sp-end-of-sexp)
+
+(define-key smartparens-mode-map (kbd "C-M-e") 'sp-up-sexp)
+(define-key smartparens-mode-map (kbd "C-M-u") 'sp-backward-up-sexp)
+(define-key smartparens-mode-map (kbd "C-M-t") 'sp-transpose-sexp)
+
+(define-key smartparens-mode-map (kbd "C-M-n") 'sp-forward-hybrid-sexp)
+(define-key smartparens-mode-map (kbd "C-M-p") 'sp-backward-hybrid-sexp)
+
+(define-key smartparens-mode-map (kbd "C-M-k") 'sp-kill-sexp)
+(define-key smartparens-mode-map (kbd "C-M-w") 'sp-copy-sexp)
+
+(define-key smartparens-mode-map (kbd "M-<delete>") 'sp-unwrap-sexp)
+(define-key smartparens-mode-map (kbd "M-<backspace>") 'sp-backward-unwrap-sexp)
+
+(define-key smartparens-mode-map (kbd "C-<right>") 'sp-forward-slurp-sexp)
+(define-key smartparens-mode-map (kbd "C-<left>") 'sp-forward-barf-sexp)
+(define-key smartparens-mode-map (kbd "C-M-<left>") 'sp-backward-slurp-sexp)
+(define-key smartparens-mode-map (kbd "C-M-<right>") 'sp-backward-barf-sexp)
+
+(define-key smartparens-mode-map (kbd "M-D") 'sp-splice-sexp)
+(define-key smartparens-mode-map (kbd "C-M-<delete>") 'sp-splice-sexp-killing-forward)
+(define-key smartparens-mode-map (kbd "C-M-<backspace>") 'sp-splice-sexp-killing-backward)
+(define-key smartparens-mode-map (kbd "C-S-<backspace>") 'sp-splice-sexp-killing-around)
+
+(define-key smartparens-mode-map (kbd "C-]") 'sp-select-next-thing-exchange)
+(define-key smartparens-mode-map (kbd "C-<left_bracket>") 'sp-select-previous-thing)
+(define-key smartparens-mode-map (kbd "C-M-]") 'sp-select-next-thing)
+
+(define-key smartparens-mode-map (kbd "M-F") 'sp-forward-symbol)
+(define-key smartparens-mode-map (kbd "M-B") 'sp-backward-symbol)
+
+(define-key smartparens-mode-map (kbd "C-\"") 'sp-change-inner)
+(define-key smartparens-mode-map (kbd "M-i") 'sp-change-enclosing)
+
+(bind-key "C-c f" (lambda () (interactive) (sp-beginning-of-sexp 2)) smartparens-mode-map)
+(bind-key "C-c b" (lambda () (interactive) (sp-beginning-of-sexp -2)) smartparens-mode-map)
+
+(bind-key "C-M-s"
+          (defhydra smartparens-hydra ()
+            "Smartparens"
+            ("d" sp-down-sexp "Down")
+            ("e" sp-up-sexp "Up")
+            ("u" sp-backward-up-sexp "Up")
+            ("a" sp-backward-down-sexp "Down")
+            ("f" sp-forward-sexp "Forward")
+            ("b" sp-backward-sexp "Backward")
+            ("k" sp-kill-sexp "Kill" :color blue)
+            ("q" nil "Quit" :color blue))
+          smartparens-mode-map)
+
+(bind-key "H-t" 'sp-prefix-tag-object smartparens-mode-map)
+(bind-key "H-p" 'sp-prefix-pair-object smartparens-mode-map)
+(bind-key "H-y" 'sp-prefix-symbol-object smartparens-mode-map)
+(bind-key "H-h" 'sp-highlight-current-sexp smartparens-mode-map)
+(bind-key "H-e" 'sp-prefix-save-excursion smartparens-mode-map)
+(bind-key "H-s c" 'sp-convolute-sexp smartparens-mode-map)
+(bind-key "H-s a" 'sp-absorb-sexp smartparens-mode-map)
+(bind-key "H-s e" 'sp-emit-sexp smartparens-mode-map)
+(bind-key "H-s p" 'sp-add-to-previous-sexp smartparens-mode-map)
+(bind-key "H-s n" 'sp-add-to-next-sexp smartparens-mode-map)
+(bind-key "H-s j" 'sp-join-sexp smartparens-mode-map)
+(bind-key "H-s s" 'sp-split-sexp smartparens-mode-map)
+(bind-key "H-s r" 'sp-rewrap-sexp smartparens-mode-map)
+(defvar hyp-s-x-map)
+(define-prefix-command 'hyp-s-x-map)
+(bind-key "H-s x" hyp-s-x-map smartparens-mode-map)
+(bind-key "H-s x x" 'sp-extract-before-sexp smartparens-mode-map)
+(bind-key "H-s x a" 'sp-extract-after-sexp smartparens-mode-map)
+(bind-key "H-s x s" 'sp-swap-enclosing-sexp smartparens-mode-map)
+
+(bind-key "C-x C-t" 'sp-transpose-hybrid-sexp smartparens-mode-map)
+
+(bind-key ";" 'sp-comment emacs-lisp-mode-map)
+
+(bind-key [remap c-electric-backspace] 'sp-backward-delete-char smartparens-strict-mode-map)
+
+;;;;;;;;;;;;;;;;;;
+;; pair management
+
+(sp-local-pair 'minibuffer-inactive-mode "'" nil :actions nil)
+(bind-key "C-(" 'sp---wrap-with-40 minibuffer-local-map)
+
+(sp-with-modes 'org-mode
+  (sp-local-pair "=" "=" :wrap "C-="))
+
+(sp-with-modes 'textile-mode
+  (sp-local-pair "*" "*")
+  (sp-local-pair "_" "_")
+  (sp-local-pair "@" "@"))
+
+(sp-with-modes 'web-mode
+  (sp-local-pair "{{#if" "{{/if")
+  (sp-local-pair "{{#unless" "{{/unless"))
+
+;;; tex-mode latex-mode
+(sp-with-modes '(tex-mode plain-tex-mode latex-mode)
+  (sp-local-tag "i" "\"<" "\">"))
+
+;;; lisp modes
+(sp-with-modes sp--lisp-modes
+  (sp-local-pair "(" nil
+                 :wrap "C-("
+                 :pre-handlers '(my-add-space-before-sexp-insertion)
+                 :post-handlers '(my-add-space-after-sexp-insertion)))
+
+(defun my-add-space-after-sexp-insertion (id action _context)
+  (when (eq action 'insert)
+    (save-excursion
+      (forward-char (sp-get-pair id :cl-l))
+      (when (or (eq (char-syntax (following-char)) ?w)
+                (looking-at (sp--get-opening-regexp)))
+        (insert " ")))))
+
+(defun my-add-space-before-sexp-insertion (id action _context)
+  (when (eq action 'insert)
+    (save-excursion
+      (backward-char (length id))
+      (when (or (eq (char-syntax (preceding-char)) ?w)
+                (and (looking-back (sp--get-closing-regexp))
+                     (not (eq (char-syntax (preceding-char)) ?'))))
+        (insert " ")))))
+
+;;; C++
+(sp-with-modes '(malabar-mode c++-mode)
+  (sp-local-pair "{" nil :post-handlers '(("||\n[i]" "RET"))))
+(sp-local-pair 'c++-mode "/*" "*/" :post-handlers '((" | " "SPC")
+                                                    ("* ||\n[i]" "RET")))
+
+(setq-default sp-escape-quotes-after-insert nil)
+
+(sp-local-pair 'js2-mode "/**" "*/" :post-handlers '(("| " "SPC")
+                                                     ("* ||\n[i]" "RET")))
+(smartparens-global-mode)
+)
+
+
+(use-package rainbow-delimiters
+:ensure t
+:config
+(add-hook 'clojure-mode-hook #'rainbow-delimiters-mode)
+)
+(show-paren-mode t)
+
+#+END_SRC
+* Load other files
+   #+BEGIN_SRC emacs-lisp
+     (defun load-if-exists (f)
+       "load the elisp file only if it exists and is readable"
+       (if (file-readable-p f)
+           (load-file f)))
+
+     (load-if-exists "~/Sync/shared/mu4econfig.el")
+     (load-if-exists "~/Sync/shared/not-for-github.el")
+
+   #+END_SRC
+
+   
+* Snippets
+#+BEGIN_SRC emacs-lisp
+    (use-package yasnippet
+      :ensure t
+      :init
+        (yas-global-mode 1))
+
+    (use-package yasnippet-snippets
+      :ensure t)
+    (use-package yasnippet-classic-snippets
+      :ensure t)
+
+#+END_SRC
+
+* Projectile
+#+BEGIN_SRC emacs-lisp
+
+    (use-package projectile
+      :ensure t
+      :bind (:map projectile-mode-map
+                    ("s-p" . 'projectile-command-map)
+                    ("C-c p" . 'projectile-command-map)
+                  )
+  
+      :config 
+      (setq projectile-completion-system 'ivy)
+
+      (projectile-mode +1))
+
+
+  ;; (use-package ibuffer-projectile
+  ;; :ensure t
+  ;; :config 
+  ;; (add-hook 'ibuffer-hook
+  ;;     (lambda ()
+  ;;       (ibuffer-projectile-set-filter-groups)
+  ;;       (unless (eq ibuffer-sorting-mode 'alphabetic)
+  ;;         (ibuffer-do-sort-by-alphabetic))))
+  ;;)
+#+END_SRC
+* Company
+#+BEGIN_SRC emacs-lisp
+(use-package company
+:ensure t
+:config
+(setq company-idle-delay 0)
+(setq company-minimum-prefix-length 3)
+
+(global-company-mode t)
+)
+
+#+END_SRC
+
+* Clojure
+#+BEGIN_SRC emacs-lisp
+ (use-package cider
+    :ensure t
+    :config
+    (add-hook 'cider-repl-mode-hook #'company-mode)
+    (add-hook 'cider-mode-hook #'company-mode)
+    (add-hook 'cider-mode-hook #'eldoc-mode)
+;;    (add-hook 'cider-mode-hook #'cider-hydra-mode)
+    (setq cider-repl-use-pretty-printing t)
+    (setq cider-repl-display-help-banner nil)
+    ;;    (setq cider-cljs-lein-repl "(do (use 'figwheel-sidecar.repl-api) (start-figwheel!) (cljs-repl))")
+
+    :bind (("M-r" . cider-namespace-refresh)
+           ("C-c r" . cider-repl-reset)
+           ("C-c ." . cider-reset-test-run-tests))
+    )
+
+#+END_SRC
+
+* Dumb jump
+#+BEGIN_SRC emacs-lisp
+
+(use-package dumb-jump
+  :bind (("M-g o" . dumb-jump-go-other-window)
+         ("M-g j" . dumb-jump-go)
+         ("M-g x" . dumb-jump-go-prefer-external)
+         ("M-g z" . dumb-jump-go-prefer-external-other-window))
+  :config 
+  ;; (setq dumb-jump-selector 'ivy) ;; (setq dumb-jump-selector 'helm)
+:init
+(dumb-jump-mode)
+  :ensure
+)
+
+
+
+#+END_SRC
+* Origami folding
+#+BEGIN_SRC emacs-lisp
+(use-package origami
+:ensure t)
+#+END_SRC
+
+#+RESULTS:
+
+* Functions
+#+BEGIN_SRC emacs-lisp
+
+  ;; font scaling
+  (use-package default-text-scale
+    :ensure t
+   :config
+    (global-set-key (kbd "C-M-=") 'default-text-scale-increase)
+    (global-set-key (kbd "C-M--") 'default-text-scale-decrease))
+
+
+;; narrow/widen dwim
+  ; if you're windened, narrow to the region, if you're narrowed, widen
+  ; bound to C-x n
+  (defun narrow-or-widen-dwim (p)
+  "If the buffer is narrowed, it widens. Otherwise, it narrows intelligently.
+  Intelligently means: region, org-src-block, org-subtree, or defun,
+  whichever applies first.
+  Narrowing to org-src-block actually calls `org-edit-src-code'.
+  
+  With prefix P, don't widen, just narrow even if buffer is already
+  narrowed."
+  (interactive "P")
+  (declare (interactive-only))
+  (cond ((and (buffer-narrowed-p) (not p)) (widen))
+  ((region-active-p)
+  (narrow-to-region (region-beginning) (region-end)))
+  ((derived-mode-p 'org-mode)
+  ;; `org-edit-src-code' is not a real narrowing command.
+  ;; Remove this first conditional if you don't want it.
+  (cond ((ignore-errors (org-edit-src-code))
+  (delete-other-windows))
+  ((org-at-block-p)
+  (org-narrow-to-block))
+  (t (org-narrow-to-subtree))))
+  (t (narrow-to-defun))))
+  
+  ;; (define-key endless/toggle-map "n" #'narrow-or-widen-dwim)
+  ;; This line actually replaces Emacs' entire narrowing keymap, that's
+  ;; how much I like this command. Only copy it if that's what you want.
+  (define-key ctl-x-map "n" #'narrow-or-widen-dwim)
+  
+
+
+#+END_SRC
+* Restclient
+#+BEGIN_SRC emacs-lisp
+(use-package restclient
+:ensure t)
+(use-package company-restclient
+:ensure t
+:config 
+(add-to-list 'company-backends 'company-restclient))
+#+END_SRC
 
 * Multiple Cursors
 #+BEGIN_SRC emacs-lisp
