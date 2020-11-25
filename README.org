@@ -408,21 +408,30 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
                     ("\\.x?html?\\'" . "/usr/bin/firefox %s")
                     ) org-file-apps ))
     ;; babel stuff
+(require 'ob-clojure)
+(require 'ob-gnuplot)
+(require 'ob-prolog)
+(use-package ob-restclient :ensure t)
+(require 'ob-restclient)
+(setq org-babel-clojure-backend 'cider)
 
     (org-babel-do-load-languages
      'org-babel-load-languages
      '((python . t)
+     (prolog . t)
+     (restclient . t)
        (emacs-lisp . t)
+       (gnuplot . t)
        (shell . t)
        (java . t)
        (C . t)
+       (clojure . t)
        (js . t)
        (ditaa . t)
        (dot . t)
        (org . t)
        (latex . t )
        ))
-
 
 
     (setq mail-user-agent 'mu4e-user-agent)
@@ -1239,15 +1248,76 @@ Version 2019-11-04"
 
 
 #+end_src
-* eglot - C++, Python, Java
+* Python
 #+begin_src emacs-lisp
+;; set the python interpeter
+(setq python-shell-interpreter "python3")
+
+
+#+end_src
+* lsp
+#+begin_src emacs-lisp
+  ;; set prefix for lsp-command-keymap (few alternatives - "s-l", "C-l")
+  (setq lsp-keymap-prefix "C-c l")
+  (setq company-clang-executable "/usr/bin/clangd-10")
+  (setq lsp-clients-clangd-executable "/usr/bin/clangd-10")
+    
+
+
+  (use-package lsp-mode
+    :ensure t
+    :commands lsp
+    :hook ((c-mode c++-mode  python-mode) . lsp)
+    )
+
+  (use-package lsp-treemacs :ensure t)
+  (add-hook 'c-mode-hook 'lsp)
+  (add-hook 'c++-mode-hook 'lsp)
+  (add-hook 'cpp-mode-hook 'lsp)
+  (setq lsp-enabled-clients '(jedi clangd))
+  (use-package lsp-ui
+  :ensure t
+    :hook (lsp-mode . lsp-ui-mode)
+    :config
+    (setq lsp-ui-sideline-enable t)
+    (setq lsp-ui-sideline-show-hover nil)
+    (setq lsp-ui-doc-position 'bottom)
+    (lsp-ui-doc-show))
+
+
+  (use-package lsp-jedi
+    :ensure t
+    :config
+    (with-eval-after-load "lsp-mode"
+      (add-to-list 'lsp-disabled-clients 'pyls)
+      (add-to-list 'lsp-enabled-clients 'jedi)))
+
+  (setq lsp-ui-doc-show-with-cursor nil)
+
+  ;; (use-package dap-mode
+  ;;   :ensure t
+  ;;   :hook (lsp-mode . dap-mode)
+  ;;   :config
+  ;;   (dap-ui-mode 1)
+  ;;   (dap-tooltip-mode 1)
+  ;;   (require 'dap-node)
+  ;;   (dap-node-setup))
+
+  ;; (dap-auto-configure-mode)
+  ;; (require 'dap-gdb-lldb)
+  ;;  (require 'dap-cpptools)
+  ;; https://emacs-lsp.github.io/lsp-mode/tutorials/how-to-turn-off/
+
+
+#+end_src
+* eglot - C++, Python, Java :tangle no
+#+begin_src emacs-lisp :tangle no
+
 (use-package eglot :ensure t)
 (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd-10"))
 (add-hook 'c-mode-hook 'eglot-ensure)
 (add-hook 'c++-mode-hook 'eglot-ensure)
 
-;; set the python interpeter
-;;(setq python-shell-interpreter "python3")
 (add-hook 'python-mode-hook 'eglot-ensure)
 
 
