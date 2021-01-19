@@ -274,6 +274,12 @@
 * Magit and git stuff
 #+BEGIN_SRC emacs-lisp
 
+;; some ediff settings
+(setq ediff-diff-options "")
+(setq ediff-custom-diff-options "-u")
+(setq ediff-window-setup-function 'ediff-setup-windows-plain)
+(setq ediff-split-window-function 'split-window-vertically
+
 (use-package magit
     :ensure t
     :init
@@ -737,6 +743,16 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
            ("C-c r" . cider-repl-reset)
            ("C-c ." . cider-reset-test-run-tests))
     )
+
+(defun my-clojure-mode-hook ()
+    (clj-refactor-mode 1)
+    (yas-minor-mode 1) ; for adding require/use/import statements
+    ;; This choice of keybinding leaves cider-macroexpand-1 unbound
+    (cljr-add-keybindings-with-prefix "C-c C-m"))
+(use-package clj-refactor
+:ensure t
+:config
+(add-hook 'clojure-mode-hook #'my-clojure-mode-hook))
 
 #+END_SRC
 
