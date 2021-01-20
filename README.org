@@ -278,7 +278,7 @@
 (setq ediff-diff-options "")
 (setq ediff-custom-diff-options "-u")
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
-(setq ediff-split-window-function 'split-window-vertically
+(setq ediff-split-window-function 'split-window-vertically)
 
 (use-package magit
     :ensure t
