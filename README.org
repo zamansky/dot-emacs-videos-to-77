@@ -1159,6 +1159,7 @@ dired-dwim-target t)
                        :initial-input nil)))
     (dired dir)))
 
+(setq dired-guess-shell-alist-user '(("" "xdg-open")))
 
 #+END_SRC
 ** floobits
